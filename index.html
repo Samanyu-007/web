@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samanyu Okade - Personal Webpage</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F3F4F6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #003366;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            background-color: #00509E;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background-color: #0073E6;
+            color: #FFF7E1;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: #FFF7E1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #003366;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .container > div {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            margin: 10px;
+        }
+        footer {
+            background-color: #003366;
+            text-align: center;
+            padding: 10px;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .details {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .btn-toggle {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #00509E;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-toggle:hover {
+            background-color: #0073E6;
+            color: #FFF7E1;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            header, footer, section {
+                padding: 10px;
+                margin: 10px;
+            }
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .container > div {
+                min-width: 100%;
+            }
+            nav {
+                flex-direction: column;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+        }
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 24px;
+            }
+            section {
+                padding: 5px;
+                margin: 5px;
+            }
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Samanyu Okade</h1>
+        <p>First year Master's Student in Electrical Engineering at TU Delft</p>
+    </header>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#experience">Experience</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Hobby Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="#blogs">Blogs</a>
+        <a href="#interests">Interests</a>
+    </nav>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a first-year Master's student deeply impassioned by the transformative potential of technology, specializing in electronics with a keen focus on microelectronics, Very Large-Scale Integration (VLSI), and sensor technology. My unyielding commitment to continual learning fuels my drive to cultivate expertise in these domains, positioning me to make substantial contributions toward advancing humanity's evolution, especially in our journey toward becoming an extraterrestrial species.</p>
+    </section>
+    <section id="experience">
+        <h2>Experience</h2>
+        <ul>
+            <li>
+                <strong>RTips Technologies</strong> - Hardware Intern (Oct 2022 - May 2023)
+                <div class="btn-toggle" onclick="toggleSection('experience1-details')">Toggle Experience Details</div>
+                <div id="experience1-details" class="hidden">
+                    <p>Researched, and improved on a device to convert between MODBUS and DALI communication protocols from base design of the PCB, to its integration.</p>
+                </div>
+            </li>
+            <li>
+                <strong>Students for the Exploration and Development of Space (SEDS India)</strong> - Executive Director (Nov 2021 - Nov 2022)
+                <div class="btn-toggle" onclick="toggleSection('experience2-details')">Toggle Experience Details</div>
+                <div id="experience2-details" class="hidden">
+                    <p>Successfully led and organized a cross-functional team of 8 SEDS India Staff members to improve efficiency and communication.</p>
+                </div>
+            </li>
+            <li>
+                <strong>The Institution of Engineering and Technology (IET-VIT Vellore)</strong> - Hardware Head (Dec 2020 - Dec 2021)
+                <div class="btn-toggle" onclick="toggleSection('experience4-details')">Toggle Experience Details</div>
+                <div id="experience4-details" class="hidden">
+                    <p>Managed, taught, and guided a team of 12 in learning hardware skills in embedded systems, fundamentals of communication, CMOS, and digital designs.</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section id="publications">
+        <h2>Publications</h2>
+        <ul>
+            <li>
+                <strong>FPGA-based decision-making for efficient satellite orientation and propulsion</strong>
+                <a href="https://ieeexplore.ieee.org/abstract/document/10157289" target="_blank"></a>
+                <div class="btn-toggle" onclick="toggleSection('publication1-details')">Toggle Publication Details</div>
+                <div id="publication1-details" class="hidden">
+                    <p><strong>Abstract:</strong> Field Programmable Gate Arrays (FPGAs) are board-based hardware implementations of Very Large-Scale Integration (VLSI) that have greatly flexible computing capabilities. To show its ability to perform multifarious functions together, this paper proposes the design for a prototype that uses light input from multiple onboard light sensors around the device or satellite. This information is used in terms of the intensity of light detected by the sensors and their associated angles of reading to activate the actuators involved in the orientation of the solar panels and cold gas thrusters to get the most efficient positioning for sunlight to be the best incident on the solar panels. This is an alternative name to the use of FPGA in space technology other than for the currently prevalent data processing. The goal of this paper is to promote the multifunctional use of FPGAs in the vast field of space technology and its scope for the furtherment of human exploration of outer space.</p>
+                </div>
+            </li>
+            <li>
+                <strong>A robotic solution for internal imperfection detection in industrial machinery</strong>
+                <a href="https://pubs-aip-org.tudelft.idm.oclc.org/aip/acp/article/3035/1/020020/3268223/A-robotic-solution-for-internal-imperfection" target="_blank"></a>
+                <div class="btn-toggle" onclick="toggleSection('publication2-details')">Toggle Publication Details</div>
+                <div id="publication2-details" class="hidden">
+                    <p><strong>Abstract:</strong> The primary edge that robots give over manual labor in industries, in addition to human safety due to automation, is their mobility and size. Robots can be programmed for the perfection of their tasks. In this paper, we will devise a multi-sensing machine that can be built up to the requirements of the client's machines. This research proposes a low-cost solution for avoidable issues. The solution proposed in this paper detects the anomalies in a machine's internal workings with the help of a concise robot that makes it useful and efficient for the secure and safe functioning of the systems.</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section id="projects">
+        <h2>Hobby Projects</h2>
+        <p>You can view my projects on my <a href="https://github.com/Samanyu-007" target="_blank">GitHub</a>.</p>
+    </section>
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:samanyuokade@gmail.com">samanyuokade@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/samanyu-okade/" target="_blank">LinkedIn Profile</a></p>
+        <p>Contact Number: +31 6 17507657</p>
+    </section>
+    <section id="blogs">
+        <h2>Blogs</h2>
+        <ul>
+            <li><a href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb" target="_blank">The Progression of Space Tech and Ambition</a></li>
+            <li><a href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1" target="_blank">Swarm Robotics</a></li>
+            <li><a href="https://medium.com/@sedsvit/just-us-d4ab577099a2" target="_blank">Just Us…?</a></li>
+        </ul>
+    </section>
+    <section id="interests">
+        <h2>Interests</h2>
+        <p>When my synapses aren't occupied, captivated by the profound theories and secrets of the universe unveiled by mankind's sophisticated technologies, and as I ponder the vast improvements and unexplored depths of what we can achieve through further electronic exploration—and what contributions I can make to this mesmerizing journey—I immerse myself in a symphony of creative pursuits. I try to play a plethora of musical instruments and like to indulge in various artistic endeavors. Whether it’s the culinary arts, painting, composing music, swimming, biking, hiking through nature’s wonders, or exploring new horizons, count me in. The quest for knowledge and the joy of learning are ever-present companions in my life's adventures.</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 Samanyu Okade. All rights reserved.</p>
+    </footer>
+    <script>
+        function toggleSection(id) {
+            var element = document.getElementById(id);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
