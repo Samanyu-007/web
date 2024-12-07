@@ -35,16 +35,16 @@
         #menu-toggle {
             background: none;
             border: none;
-            color: white;
+            color: rgb(20, 0, 120);
             font-size: 1.5em;
             cursor: pointer;
-            position: fixed;
+            position: fixed; /* Lock to the top */
             top: 15px;
             right: 15px;
             z-index: 1001;
         }
 
-        /* Navbar hidden and visible styles */
+        /* Navbar styles */
         .navbar {
             position: fixed;
             top: 0;
@@ -73,7 +73,25 @@
         }
 
         .navbar a:hover {
-            color: #f9e88a;
+            color: #FFD700;
+        }
+
+        /* Sticky navbar on large screens */
+        @media (min-width: 768px) {
+            #menu-toggle {
+                display: none;
+            }
+
+            .navbar {
+                transform: translateY(0);
+                position: sticky;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .navbar.visible {
+                transform: none;
+            }
         }
 
         /* Back to Top Button */
@@ -104,23 +122,6 @@
         #back-to-top:hover {
             background-color: #f9e88a;
             color: #00509E;
-        }
-        /* Ensure sticky navbar on large screens */
-        @media (min-width: 768px) {
-            #menu-toggle {
-                display: none;
-            }
-
-            .navbar {
-                transform: translateY(0);
-                position: sticky;
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            .navbar.visible {
-                transform: none;
-            }
         }
 
         #navbar.hidden {
@@ -735,7 +736,8 @@
         </button>
     </header>
     
-    <nav id="navbar" class="navbar hidden">
+    <!-- Modify the navigation bar -->
+    <nav id="navbar" class="navbar">
         <a href="#about">About Me</a>
         <a href="#experience">Experience</a>
         <a href="#publications">Publications</a>
@@ -1054,23 +1056,25 @@
         }
         const menuToggle = document.getElementById('menu-toggle');
         const navbar = document.getElementById('navbar');
-        const backToTop = document.getElementById('back-to-top');
+        const navLinks = navbar.querySelectorAll('a');
 
-        // Toggle the visibility of the navbar
+        // Toggle the dropdown menu
         menuToggle.addEventListener('click', () => {
             navbar.classList.toggle('visible');
+
+            // Update ARIA attributes for accessibility
             const isExpanded = navbar.classList.contains('visible');
             menuToggle.setAttribute('aria-expanded', isExpanded);
             menuToggle.setAttribute('aria-label', isExpanded ? 'Close Navigation' : 'Open Navigation');
         });
 
-        // Close the navbar after a link is clicked
-        navbar.addEventListener('click', (event) => {
-            if (event.target.tagName === 'A') {
+        // Close dropdown when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
                 navbar.classList.remove('visible');
                 menuToggle.setAttribute('aria-expanded', 'false');
                 menuToggle.setAttribute('aria-label', 'Open Navigation');
-            }
+            });
         });
 
         // Show the back-to-top button when the user scrolls down
