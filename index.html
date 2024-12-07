@@ -31,18 +31,20 @@
             margin-top: 10px;
         }
         
+        /* Hamburger Menu */
         #menu-toggle {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5em;
-        cursor: pointer;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        z-index: 1001;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1001;
         }
-        
+
+        /* Navbar hidden and visible styles */
         .navbar {
             position: fixed;
             top: 0;
@@ -71,9 +73,38 @@
         }
 
         .navbar a:hover {
-            color: #f9e88b;
+            color: #f9e88a;
         }
 
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00509E;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #back-to-top.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #back-to-top:hover {
+            background-color: #f9e88a;
+            color: #00509E;
+        }
         /* Ensure sticky navbar on large screens */
         @media (min-width: 768px) {
             #menu-toggle {
@@ -536,12 +567,21 @@
             position: relative;
         }
 
-        #blogs h2 {
+        #blogs {
             text-align: center;
-            margin-bottom: 15px;
+            padding: 40px 20px;
+            margin: 20px auto;
+            max-width: 1000px;
+            background: #FFF7E1;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #blogs h2 {
             font-size: 1.8em;
-            color: #00509E;
+            color: #003366;
             position: relative;
+            margin-bottom: 30px;
         }
 
         #blogs h2::after {
@@ -549,9 +589,47 @@
             display: block;
             width: 50px;
             height: 3px;
-            background-color: #00509E;
+            background-color: #003366;
             margin: 10px auto 0;
             border-radius: 2px;
+        }
+
+        .blogs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .blog-card {
+            text-decoration: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+            color: #333;
+        }
+
+        .blog-card h3 {
+            font-size: 1.2em;
+            color: #00509E;
+            margin-bottom: 10px;
+        }
+
+        .blog-card p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+
+        .blog-card:hover h3 {
+            color: #00509E;
         }
 
         #abour h2::after {
@@ -657,8 +735,7 @@
         </button>
     </header>
     
-    <!-- Modify the navigation bar -->
-    <nav id="navbar" class="navbar">
+    <nav id="navbar" class="navbar hidden">
         <a href="#about">About Me</a>
         <a href="#experience">Experience</a>
         <a href="#publications">Publications</a>
@@ -667,6 +744,11 @@
         <a href="#interests">Interests</a>
         <a href="#contact">Contact</a>
     </nav>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <section id="about">
         <h2>About Me</h2>
@@ -897,10 +979,19 @@
     
     <section id="blogs">
         <h2>Blogs</h2>
-        <ul>
-            <li><a href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb" target="_blank">The Progression of Space Tech and Ambition</a></li>
-            <li><a href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1" target="_blank">Swarm Robotics</a></li>
-        </ul>
+        <div class="blogs-container">
+            <!-- Blog 1 -->
+            <a href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb" target="_blank" class="blog-card">
+                <h3>The Progression of Space Tech and Ambition</h3>
+                <p>Exploring how technology drives humanity’s journey into space and beyond.</p>
+            </a>
+    
+            <!-- Blog 2 -->
+            <a href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1" target="_blank" class="blog-card">
+                <h3>Swarm Robotics</h3>
+                <p>An introduction to swarm robotics and its role in advancing automation.</p>
+            </a>
+        </div>
     </section>
 
     <section id="interests">
@@ -963,15 +1054,42 @@
         }
         const menuToggle = document.getElementById('menu-toggle');
         const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('back-to-top');
 
+        // Toggle the visibility of the navbar
         menuToggle.addEventListener('click', () => {
-            // Toggle the visible class for animations
             navbar.classList.toggle('visible');
-
-            // Update ARIA attributes for accessibility
             const isExpanded = navbar.classList.contains('visible');
             menuToggle.setAttribute('aria-expanded', isExpanded);
             menuToggle.setAttribute('aria-label', isExpanded ? 'Close Navigation' : 'Open Navigation');
+        });
+
+        // Close the navbar after a link is clicked
+        navbar.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A') {
+                navbar.classList.remove('visible');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', 'Open Navigation');
+            }
+        });
+
+        // Show the back-to-top button when the user scrolls down
+        window.addEventListener('scroll', () => {
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = document.documentElement.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+
+            // Show the back-to-top button when near the bottom of the page
+            if (scrollTop + clientHeight >= scrollHeight - 100) {
+                backToTop.classList.remove('hidden');
+            } else {
+                backToTop.classList.add('hidden');
+            }
+        });
+
+        // Scroll back to the top when the back-to-top button is clicked
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>    
 </body>
