@@ -604,6 +604,24 @@
             border-radius: 2px;
         }   
 
+        .project-link {
+            text-decoration: none; /* Remove underline from links */
+            color: inherit; /* Inherit text color */
+        }
+
+        .project-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
         /* Media Queries */
         @media (max-width: 768px) {
             nav {
@@ -812,34 +830,63 @@
             </div>
     
             <!-- Project 2 -->
-            <div class="project-card">
-                <h3>The RTA [Robotic Temperate Analyzer]</h3>
-                <p><strong>Mar 2022 – May 2022</strong></p>
-                <ul>
-                    <li>Developed a prototype robot to maintain personal space in crowded areas.</li>
-                    <li>Integrated temperature and humidity sensors for monitoring indoor conditions.</li>
-                </ul>
-            </div>
+            <a href="https://github.com/Samanyu-007/The-RTA" target="_blank" class="project-link">
+                <div class="project-card">
+                    <h3>The RTA [Robotic Temperate Analyzer]</h3>
+                    <p><strong>Mar 2022 – May 2022</strong></p>
+                    <ul>
+                        <li>Developed a prototype robot to maintain personal space in crowded areas.</li>
+                        <li>Integrated temperature and humidity sensors for monitoring indoor conditions.</li>
+                    </ul>
+                </div>
+            </a>
     
             <!-- Project 3 -->
-            <div class="project-card">
-                <h3>The Goniometric Glove</h3>
-                <p><strong>June 2021</strong></p>
-                <ul>
-                    <li>Designed a makeshift artificial hand using flex sensors.</li>
-                    <li>Used Machine Learning for robotic applications like spacecraft repairs and sign language communication.</li>
-                </ul>
-            </div>
+            <a href="https://github.com/Samanyu-007/The-Goniometric-Glove" target="_blank" class="project-link">
+                <div class="project-card">
+                    <h3>The Goniometric Glove</h3>
+                    <p><strong>June 2021</strong></p>
+                    <ul>
+                        <li>Designed a makeshift artificial hand using flex sensors.</li>
+                        <li>Used Machine Learning for robotic applications like spacecraft repairs and sign language communication.</li>
+                    </ul>
+                </div>
+            </a>
     
             <!-- Project 4 -->
-            <div class="project-card">
-                <h3>Goniometry - Visual Aid</h3>
-                <p><strong>Oct 2021</strong></p>
-                <ul>
-                    <li>Developed a feedback system for the visually impaired to walk without a walking stick.</li>
-                    <li>Incorporated flex sensors and servo motors to assist movement.</li>
-                </ul>
-            </div>
+            <a href="https://github.com/Samanyu-007/Visual-Aid" target="_blank" class="project-link">
+                <div class="project-card">
+                    <h3>Goniometry - Visual Aid</h3>
+                    <p><strong>Oct 2021</strong></p>
+                    <ul>
+                        <li>Developed a feedback system for the visually impaired to walk without a walking stick.</li>
+                        <li>Incorporated flex sensors and servo motors to assist movement.</li>
+                    </ul>
+                </div>
+            </a>
+            <!-- Project 5 -->
+            <a href="https://github.com/Samanyu-007/SensoRobot" target="_blank" class="project-link">
+                <div class="project-card">
+                    <h3>SensoRobot</h3>
+                    <p><strong>Sept 2021</strong></p>
+                    <ul>
+                        <li>Designed a multisensing robot for navigating pipes in heavy industries.</li>
+                        <li>Used ultrasonic sensors for auto-steering and avoidance.</li>
+                    </ul>
+                </div>
+            </a>
+
+            <!-- Project 6 -->
+            <a href="https://github.com/Samanyu-007/Smart-Garbage-Bin" target="_blank" class="project-link">
+                <div class="project-card">
+                    <h3>Smart Garbage Bin</h3>
+                    <p><strong>Aug 2021</strong></p>
+                    <ul>
+                        <li>Developed a smart bin that automatically opens only when you have something to throw</li>
+                        <li>Also displays capacity of the bin from afar</li>
+                    </ul>
+                </div>
+            </a>
         </div>
     
         <!-- Link to GitHub -->
@@ -918,7 +965,13 @@
         const navbar = document.getElementById('navbar');
 
         menuToggle.addEventListener('click', () => {
-            navbar.classList.toggle('hidden');
+            // Toggle the visible class for animations
+            navbar.classList.toggle('visible');
+
+            // Update ARIA attributes for accessibility
+            const isExpanded = navbar.classList.contains('visible');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+            menuToggle.setAttribute('aria-label', isExpanded ? 'Close Navigation' : 'Open Navigation');
         });
     </script>    
 </body>
