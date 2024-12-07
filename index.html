@@ -30,7 +30,105 @@
             font-size: 1.2em;
             margin-top: 10px;
         }
+        
+        #menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5em;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1001;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #00509E;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
 
+        .navbar.visible {
+            transform: translateY(0);
+        }
+
+        .navbar a {
+            margin: 10px 0;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .navbar a:hover {
+            color: #f9e88b;
+        }
+
+        /* Ensure sticky navbar on large screens */
+        @media (min-width: 768px) {
+            #menu-toggle {
+                display: none;
+            }
+
+            .navbar {
+                transform: translateY(0);
+                position: sticky;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .navbar.visible {
+                transform: none;
+            }
+        }
+
+        #navbar.hidden {
+            display: none;
+        }
+
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #00509E;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        #navbar a {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            #menu-toggle {
+                display: none;
+            }
+
+            #navbar {
+                display: flex;
+                flex-direction: row;
+                position: sticky;
+                justify-content: center;
+            }
+
+            #navbar.hidden {
+                display: flex;
+            }
+        }
         /* Navbar */
         nav {
             background-color: #00509E;
@@ -536,8 +634,13 @@
     <header>
         <h1>Samanyu Okade</h1>
         <p>Master's Student in Electrical Engineering at TU Delft</p>
+        <button id="menu-toggle" class="menu-icon" aria-label="Open Navigation" aria-expanded="false" aria-controls="navbar">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
-    <nav>
+    
+    <!-- Modify the navigation bar -->
+    <nav id="navbar" class="navbar">
         <a href="#about">About Me</a>
         <a href="#experience">Experience</a>
         <a href="#publications">Publications</a>
@@ -546,6 +649,7 @@
         <a href="#interests">Interests</a>
         <a href="#contact">Contact</a>
     </nav>
+
     <section id="about">
         <h2>About Me</h2>
         <div class="about-container">
@@ -810,6 +914,12 @@
                 button.innerHTML = 'View Details <i class="fas fa-caret-down"></i>';
             }
         }
+        const menuToggle = document.getElementById('menu-toggle');
+        const navbar = document.getElementById('navbar');
+
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('hidden');
+        });
     </script>    
 </body>
 </html>
