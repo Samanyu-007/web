@@ -29,6 +29,44 @@
       --maxw: 1240px;
     }
 
+    /* Education accordion */
+    .edu-accordion { width: 100%; }
+    .acc-trigger{
+      width: 100%;
+      background: transparent;
+      color: var(--text);
+      border: 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .acc-trigger:last-of-type{ border-bottom:1px solid var(--border); }
+    .acc-trigger:hover{ color: #fff; }
+    .acc-icon{
+      width: 18px; height: 18px; position: relative; flex: 0 0 18px;
+    }
+    .acc-icon::before, .acc-icon::after{
+      content:""; position:absolute; top:50%; left:50%;
+      width: 14px; height: 2px; background: var(--acc-1); transform: translate(-50%,-50%);
+    }
+    .acc-icon::after{ transform: translate(-50%,-50%) rotate(90deg); }
+    .acc-trigger.open .acc-icon::after{ opacity: 0; } /* minus when open */
+
+    .acc-panel{
+      display: none;
+      padding: 8px 0 18px;
+    }
+    .acc-panel.open{ display: block; }
+
+    /* small spacing tweak in the card so the borders breathe a bit */
+    .card .edu-accordion .subtle{ margin: 0; }
+
     .playlist-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -562,6 +600,19 @@
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+
+    // Education accordion
+    document.querySelectorAll('.edu-accordion .acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isOpen = btn.classList.contains('open');
+        // allow multiple open; toggle only this one
+        btn.classList.toggle('open', !isOpen);
+        const panel = btn.nextElementSibling;
+        panel.classList.toggle('open', !isOpen);
+      });
+    });
+
   </script>
 </body>
 </html>
