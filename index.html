@@ -29,6 +29,33 @@
       --maxw: 1240px;
     }
 
+    /* Tab + Title image icons */
+    .tab-icon{
+      height: 18px;
+      width: auto;
+      display: inline-block;
+      vertical-align: -3px;
+      margin-right: 8px;
+    }
+    .title-icon{
+      height: 22px;
+      width: auto;
+      display: inline-block;
+      vertical-align: -4px;
+      margin-right: 10px;
+    }
+
+    /* (keep) logo image */
+    .logo-img{
+      height: 36px;
+      width: auto;
+      display:block;
+      filter: drop-shadow(0 0 .5px rgba(0,0,0,.6));
+    }
+    .brand a{ display:flex; align-items:center; }
+    .brand a:hover{ opacity:.9; }
+
+
     /* Education accordion */
     .edu-accordion { width: 100%; }
     .acc-trigger{
@@ -321,23 +348,24 @@
   <!-- NAV / TABS -->
   <nav class="nav" role="tablist" aria-label="Primary">
     <div class="brand">
-        <a href="#ground-station" data-tab="ground-station" aria-label="Go to Ground Station">
-            <img src="logo_transparent_highres.png" alt="Samanyu logo" class="logo-img">
-        </a>
-        <div class="title">Ground Station</div>
+      <a href="#ground-station" data-tab="ground-station">
+        <img src="logo_transparent_highres.png" alt="Samanyu Logo" class="logo-img">
+      </a>
+      <div class="title"><i class="fa-solid fa-rocket"></i> Ground Station</div>
     </div>
 
 
     <div class="tabs">
       <a class="tab" role="tab" href="#ground-station" data-tab="ground-station"><i class="fa-solid fa-satellite-dish"></i> Ground Station</a>
       <a class="tab" role="tab" href="#first-stage" data-tab="first-stage">
-    <span class="icon-first-stage" aria-hidden="true"></span> 1st Stage
-    </a>
+      <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage </a>
 
 
       <a class="tab" role="tab" href="#fuel" data-tab="fuel"><i class="fa-solid fa-gas-pump"></i> Fuel</a>
-      <a class="tab" role="tab" href="#ignition" data-tab="ignition"><i class="fa-solid fa-fire"></i> Ignition</a>
-      <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity"><i class="fa-solid fa-jet-fighter-up"></i> Escape Velocity</a>
+      <a class="tab" role="tab" href="#ignition" data-tab="ignition">
+      <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"> Ignition </a>
+      <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity">
+      <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"> Escape Velocity </a>
     </div>
 
     <div class="spacer"></div>
@@ -382,7 +410,11 @@
 
     <!-- PANEL: 1st Stage (About + Education) -->
     <section id="first-stage" class="panel" role="tabpanel" aria-labelledby="tab-first-stage">
-      <h2 class="section-title"><i class="fa-solid fa-rocket"></i> 1st Stage — About & Education</h2>
+      <h2 class="section-title">
+        <img class="title-icon" src="start-up.png" alt="Ignition icon">
+        Ignition — Projects & Proud Moments
+      </h2>
+
       <div class="grid cols-2">
         <article class="card">
           <h3>About</h3>
@@ -547,7 +579,10 @@
 
     <!-- PANEL: Escape Velocity (What’s next) -->
     <section id="escape-velocity" class="panel" role="tabpanel" aria-labelledby="tab-escape-velocity">
-      <h2 class="section-title"><i class="fa-solid fa-jet-fighter-up"></i> Escape Velocity — What’s next</h2>
+      <h2 class="section-title">
+        <img class="title-icon" src="speed.png" alt="Escape Velocity icon">
+        Escape Velocity — What’s next
+      </h2>
 
       <div class="card">
         <h3>Coming Soon!</h3>
@@ -609,9 +644,16 @@
         // allow multiple open; toggle only this one
         btn.classList.toggle('open', !isOpen);
         const panel = btn.nextElementSibling;
-        panel.classList.toggle('open', !isOpen);
+        const willOpen = !btn.classList.contains('open');
+        btn.classList.toggle('open', willOpen);
+        panel.classList.toggle('open', willOpen);
+        // update symbol on this button
+        const plusMinus = btn.querySelector('.acc-icon');
+        // we draw plus/minus via CSS; no text update needed
+        // if you also show a character somewhere, set that here
       });
     });
+
 
   </script>
 </body>
