@@ -1,235 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samanyu Okade - Personal Webpage</title>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #F3F4F6;
-            color: #333;
-            margin: 0;
-            padding: 0;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samanyu Okade – Ground Station</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      /* Palette from your note */
+      --ink: #0a0a0d;               /* near-black background */
+      --text: #fcfbfe;              /* off-white text */
+      --deep-1: #1d1135;            /* plum/dark purple */
+      --deep-2: #0c164f;            /* deep navy */
+      --acc-1: #ba1e68;             /* magenta accent */
+      --acc-2: #5643fd;             /* indigo */
+      --acc-3: #7649fe;             /* purple */
+      --muted: #b9b8c6;             /* muted text */
+      --card: #121219;              /* card bg */
+      --card-2: #151522;            /* alt card */
+      --border: #232333;            /* subtle border */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --pad: 20px;
+      --pad-lg: 28px;
+      --tab-h: 54px;
+      --maxw: 1240px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--text);
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.8"/><circle cx="50" cy="30" r="1" fill="white" opacity="0.6"/><circle cx="70" cy="80" r="1" fill="white" opacity="0.8"/><circle cx="20" cy="60" r="1" fill="white" opacity="0.5"/></svg>') repeat;
+        background-size: 200px 200px;
+        z-index: 0;
+        animation: moveStars 60s linear infinite;
+        pointer-events: none;
         }
-        header {
-            background-color: #003366;
-            padding: 20px;
-            text-align: center;
-            color: white;
+        @keyframes moveStars {
+        from { background-position: 0 0; }
+        to { background-position: -200px 200px; }
         }
-        header h1 {
-            margin: 0;
+        main, nav, footer, .panel, .card {
+        position: relative;
+        z-index: 1;
         }
-        nav {
-            background-color: #00509E;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s;
+
+
+    /* Top bar with tabs */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--tab-h);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 10px;
+      background:
+        linear-gradient(180deg, rgba(22,22,30,.75), rgba(22,22,30,.25) 60%, rgba(22,22,30,0));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 10px; margin-right: 8px;
+      padding: 6px 10px; border-radius: var(--radius-sm);
+    }
+
+    .logo-img {
+    height: 36px; /* tweak to taste: 34–42px works well */
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 0 0.5px rgba(0,0,0,.6)); /* subtle crispness on dark */
+    }
+    .brand a {
+    display: flex;
+    align-items: center;
+    }
+    .brand a:hover { opacity: 0.9; }
+
+
+    /* .brand .logo {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: radial-gradient(60% 60% at 35% 30%, var(--acc-2), var(--deep-2));
+      box-shadow: 0 0 0 2px #171722, inset 0 0 16px rgba(255,255,255,.08);
+    } */
+    .brand .title { font-weight: 800; letter-spacing: .3px; }
+
+    .tabs {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+      overflow-x: auto; overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      --active-bg: linear-gradient(135deg, rgba(86,67,253,.18), rgba(118,73,254,.18));
+      --active-brd: linear-gradient(135deg, var(--acc-2), var(--acc-3));
+      --hover-bg: rgba(255,255,255,.05);
+
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 36px; padding: 0 12px; border-radius: 999px;
+      color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem;
+      border: 1px solid transparent;
+      transition: .18s ease;
+    }
+    .tab i { font-size: 0.95rem; opacity: .9; }
+    .tab:hover { background: var(--hover-bg); }
+    .tab.active {
+      background: var(--active-bg);
+      border-image: var(--active-brd) 1;
+      border-width: 1px; border-style: solid; border-color: transparent;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+
+    .spacer { flex: 1; }
+
+    .cta {
+      display: inline-flex; gap: 10px; align-items: center;
+      background: linear-gradient(135deg, var(--acc-2), var(--acc-3));
+      color: white; padding: 8px 12px; border-radius: 999px; font-weight: 700;
+      box-shadow: var(--shadow);
+      text-decoration: none; border: 0;
+    }
+
+    /* Page wrapper */
+    .wrap { max-width: var(--maxw); margin: 40px auto; padding: 0 20px 100px; }
+
+    /* Panels */
+    .panel { display: none; animation: fade .25s ease; }
+    .panel.active { display: block; }
+    @keyframes fade { from{opacity:0; transform: translateY(4px);} to{opacity:1; transform:none;} }
+
+    /* Cards */
+    .grid { display: grid; gap: 20px; }
+    @media (min-width: 860px){ .grid.cols-2{ grid-template-columns: 1fr 1fr; } }
+
+    .card {
+      background: linear-gradient(180deg, var(--card), var(--card-2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--pad-lg);
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 8px; font-size: 1.08rem; }
+    .card p { color: var(--muted); margin: 0.35rem 0 0.2rem; }
+    .subtle { color: var(--muted); font-size: .95rem; }
+
+    /* Section headers */
+    .section-title {
+      display:flex; align-items:center; gap:10px; margin: 0 0 12px;
+      font-size: 1.4rem; font-weight: 800; letter-spacing: .2px;
+    }
+    .section-title i { color: var(--acc-1); }
+
+    /* Chips */
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+    .chip { padding:6px 10px; font-size:.85rem; border-radius:999px; border:1px solid var(--border); background:#0f0f18; color:#dcdaf3; }
+
+    /* Links */
+    a.inline { color: var(--text); text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.35); }
+    a.inline:hover { color: #ffffff; text-decoration-color: var(--acc-2); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); margin-top: 48px; padding-top: 20px; color: var(--muted); font-size: .95rem; }
+    .foot-links { display:flex; gap:14px; flex-wrap: wrap; }
+
+    /* Hero header within Ground Station */
+    .hero {
+      background: linear-gradient(120deg, rgba(13,15,32,.6), rgba(12,22,79,.25) 60%, rgba(29,17,53,.18));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+    .hero h1 { margin: 0 0 6px; font-size: 1.8rem; }
+    .hero p { margin: 0; color: var(--muted); }
+
+    /* Small utility */
+    .muted { color: var(--muted); }
+    @media (min-width: 1200px){ body { font-size: 17px; } }
+    @media (max-width: 860px){ .section-title{font-size:1.25rem;} .card h3{font-size:1.02rem;} }
+  /* Custom icon for 1st Stage (white fill, outline disappears into background) */
+    /* .icon-first-stage{
+    display: inline-block;
+    width: 18px;             /* tweak size as you like */
+    /* height: 18px;
+    background: var(--text); /* white interior */
+    /* mask: url('shape.png') center / contain no-repeat;
+    -webkit-mask: url('shape.png') center / contain no-repeat; /* Safari */
+    /* margin-right: 6px;
+    } */ 
+
+    /* Optional: tiny glow on hover/active */
+    /* .tab:hover .icon-first-stage{
+    filter: drop-shadow(0 0 2px rgba(255,255,255,.25));
+    }
+    .tab.active .icon-first-stage{
+    filter: drop-shadow(0 0 3px rgba(118,73,254,.35));
+    } */
+
+    .icon-first-stage{
+    display:inline-block;
+    width:18px;                 /* adjust size as you like */
+    height:18px;
+    background-color: var(--text);   /* the fill (white) */
+    /* Standard mask */
+    mask-image: url('shape.png');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    mask-mode: alpha;
+    /* Safari / WebKit */
+    -webkit-mask-image: url('shape.png');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-composite: source-over;
+    margin-right:6px;
+    }
+
+    /* Subtle hover/active glow so the icon doesn’t vanish visually */
+    .tab:hover .icon-first-stage{
+    filter: drop-shadow(0 0 2px rgba(255,255,255,.28));
+    }
+    .tab.active .icon-first-stage{
+    filter: drop-shadow(0 0 3px rgba(118,73,254,.35));
+    }
+
+    /* Fallback if mask is unsupported or image fails to load:
+    we swap to an inline background image (blue lines) and invert to near-white */
+    @supports not (-webkit-mask-image: url('x')) and not (mask-image: url('x')){
+    .icon-first-stage{
+            background-color: transparent;
+            background-image: url('shape.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0) invert(1);
         }
-        nav a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        nav a:hover {
-            background-color: #0073E6;
-            color: #FFF7E1;
-        }
-        section {
-            padding: 20px;
-            margin: 20px;
-            background-color: #FFF7E1;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #003366;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .container > div {
-            flex: 1;
-            min-width: 300px;
-            max-width: 600px;
-            margin: 10px;
-        }
-        footer {
-            background-color: #003366;
-            text-align: center;
-            padding: 10px;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        .details {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        .btn-toggle {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #00509E;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 10px 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .btn-toggle:hover {
-            background-color: #0073E6;
-            color: #FFF7E1;
-        }
-        .hidden {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            header, footer, section {
-                padding: 10px;
-                margin: 10px;
-            }
-            .container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .container > div {
-                min-width: 100%;
-            }
-            nav {
-                flex-direction: column;
-            }
-            nav a {
-                margin: 5px 0;
-            }
-        }
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 24px;
-            }
-            section {
-                padding: 5px;
-                margin: 5px;
-            }
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    }
+
+  </style>
 </head>
 <body>
-    <header>
+  <!-- NAV / TABS -->
+  <nav class="nav" role="tablist" aria-label="Primary">
+    <div class="brand">
+        <a href="#ground-station" data-tab="ground-station" aria-label="Go to Ground Station">
+            <img src="logo_transparent_highres.png" alt="Samanyu logo" class="logo-img">
+        </a>
+        <div class="title">Ground Station</div>
+    </div>
+
+
+    <div class="tabs">
+      <a class="tab" role="tab" href="#ground-station" data-tab="ground-station"><i class="fa-solid fa-satellite-dish"></i> Ground Station</a>
+      <a class="tab" role="tab" href="#first-stage" data-tab="first-stage">
+    <span class="icon-first-stage" aria-hidden="true"></span> 1st Stage
+    </a>
+
+
+      <a class="tab" role="tab" href="#fuel" data-tab="fuel"><i class="fa-solid fa-gas-pump"></i> Fuel</a>
+      <a class="tab" role="tab" href="#ignition" data-tab="ignition"><i class="fa-solid fa-fire"></i> Ignition</a>
+      <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity"><i class="fa-solid fa-jet-fighter-up"></i> Escape Velocity</a>
+    </div>
+
+    <div class="spacer"></div>
+    <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i> Contact</a>
+  </nav>
+
+  <main class="wrap">
+    <!-- PANEL: Ground Station (Home) -->
+    <section id="ground-station" class="panel" role="tabpanel" aria-labelledby="tab-ground-station">
+      <div class="hero">
         <h1>Samanyu Okade</h1>
-        <p>First year Master's Student in Electrical Engineering at TU Delft</p>
-    </header>
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#experience">Experience</a>
-        <a href="#publications">Publications</a>
-        <a href="#projects">Hobby Projects</a>
-        <a href="#contact">Contact</a>
-        <a href="#blogs">Blogs</a>
-        <a href="#interests">Interests</a>
-    </nav>
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I am a first-year Master's student deeply impassioned by the transformative potential of technology, specializing in electronics with a keen focus on microelectronics, Very Large-Scale Integration (VLSI), and sensor technology. My unyielding commitment to continual learning fuels my drive to cultivate expertise in these domains, positioning me to make substantial contributions toward advancing humanity's evolution, especially in our journey toward becoming an extraterrestrial species.</p>
+        <p>EE MSc @ TU Delft · Microelectronics · VLSI · Digital Logic · Budding Neuromorphic Computing</p>
+        <p class="subtle" style="margin-top:10px;">“Bridging silicon & space, building resilient hardware for humanity’s future.”</p>
+        <div class="chips" aria-label="Quick Links">
+          <a class="chip inline" href="https://www.linkedin.com/in/samanyu-okade/" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a class="chip inline" href="mailto:samanyuokade@gmail.com"><i class="fa-solid fa-paper-plane"></i> Email</a>
+          <a class="chip inline" href="#ignition"><i class="fa-solid fa-fire"></i> Projects</a>
+          <a class="chip inline" href="#escape-velocity"><i class="fa-solid fa-forward-fast"></i> Coming Soon</a>
+        </div>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:16px;">
+        <article class="card">
+          <h3 class="section-title"><i class="fa-solid fa-bolt"></i> TL;DR</h3>
+          <p><strong>Samanyu Okade | TU Delft EE MSc</strong></p>
+          <p>🚀 Microelectronics · VLSI · Digital Logic · (learning) Neuromorphic Computing</p>
+          <p><em>Bridging silicon & space, building resilient hardware for humanity’s future.</em></p>
+        </article>
+
+        <article class="card">
+          <h3 class="section-title"><i class="fa-solid fa-circle-question"></i> Ask me about</h3>
+          <ul class="subtle" style="margin:0; padding-left: 1.1rem;">
+            <li>Robust digital & neuromorphic hardware</li>
+            <li>Kickstarting space outreach initiatives</li>
+            <li>Running a technical team as a student</li>
+            <li>Playlists for focus & flow</li>
+            <li>Books on tech, space & the future</li>
+          </ul>
+        </article>
+      </div>
     </section>
-    <section id="experience">
-        <h2>Experience</h2>
-        <ul>
-            <li>
-                <strong>RTips Technologies</strong> - Hardware Intern (Oct 2022 - May 2023)
-                <div class="btn-toggle" onclick="toggleSection('experience1-details')">Toggle Experience Details</div>
-                <div id="experience1-details" class="hidden">
-                    <p>Researched, and improved on a device to convert between MODBUS and DALI communication protocols from base design of the PCB, to its integration.</p>
-                </div>
-            </li>
-            <li>
-                <strong>Students for the Exploration and Development of Space (SEDS India)</strong> - Executive Director (Nov 2021 - Nov 2022)
-                <div class="btn-toggle" onclick="toggleSection('experience2-details')">Toggle Experience Details</div>
-                <div id="experience2-details" class="hidden">
-                    <p>Successfully led and organized a cross-functional team of 8 SEDS India Staff members to improve efficiency and communication.</p>
-                </div>
-            </li>
-            <li>
-                <strong>The Institution of Engineering and Technology (IET-VIT Vellore)</strong> - Hardware Head (Dec 2020 - Dec 2021)
-                <div class="btn-toggle" onclick="toggleSection('experience4-details')">Toggle Experience Details</div>
-                <div id="experience4-details" class="hidden">
-                    <p>Managed, taught, and guided a team of 12 in learning hardware skills in embedded systems, fundamentals of communication, CMOS, and digital designs.</p>
-                </div>
-            </li>
+
+    <!-- PANEL: 1st Stage (About + Education) -->
+    <section id="first-stage" class="panel" role="tabpanel" aria-labelledby="tab-first-stage">
+      <h2 class="section-title"><i class="fa-solid fa-rocket"></i> 1st Stage — About & Education</h2>
+      <div class="grid cols-2">
+        <article class="card">
+          <h3>About</h3>
+            <p>I’m an aspiring space hardware engineer with my sights set firmly on building the next generation of intelligent, resilient systems. My fascination lies at the intersection of digital design, system architecture, and the dream of pushing humanity further into the cosmos.</p>
+            <p>Currently pursuing my MSc in Microelectronics at TU Delft, I focus on crafting robust, high-performance digital systems and SoC architectures. Whether it’s designing radiation-tolerant processors or fine-tuning RTL for timing closure, my goal is always the same: to make hardware that’s not just powerful, but dependable in the harshest environments — like deep space.</p>
+            <p>My toolkit spans Verilog, SystemVerilog, and Python, backed by hands-on experience with industry tools like Cadence Genus/Innovus, Questa, and ModelSim. Beyond the lab, I draw on my leadership in student space organisations and my creative side — music, art, and sport — to stay adaptable, collaborative, and inspired.</p>
+            <p><a class="inline" href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank">Download Resume →</a></p>
+        </article>
+        <article class="card">
+          <h3>Education</h3>
+          <ul class="subtle" style="margin: 0; padding-left: 1.1rem;">
+            <li><strong>TU Delft — MSc Electrical Engineering</strong> (Microelectronics track)</li>
+            <li>Relevant: Computer Architecture, VLSI, Digital Logic, Systems Engineering</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:16px;">
+        <h3>Experience (Highlights)</h3>
+        <p class="subtle"><em>What’s cool about this:</em> Mentoring students to build real biomedical projects; shipping hardware that bridges industrial protocols; leading national space outreach.</p>
+        <ul class="subtle" style="padding-left: 1.1rem;">
+          <li><strong>Teaching Assistant (TU Delft, 2024–2025):</strong> Guided heart-sound localization projects; mentored wearable sensor proposals and grading.</li>
+          <li><strong>Hardware Intern (RTips, 2022–2023):</strong> Designed MODBUS↔DALI protocol bridge; PCB design; bring-up.</li>
+          <li><strong>Executive Director (SEDS India, 2021–2022):</strong> Led national student space initiatives & partnerships.</li>
+          <li class="muted"><em>Earlier:</em> IET-VIT — led a 12-member hardware team; ran embedded workshops.</li>
         </ul>
+      </article>
+
+      <article class="card" style="margin-top:16px;">
+        <h3>Playlists (quick listen)</h3>
+        <div class="grid cols-2">
+          <div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/254AP5UELZvM17rs6G5SVc?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2JgcglU4vKz9EUmqhpj66l?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/70wtbC67SYWpLcFMdP5dEF?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/04x3XUkWEHugFwOYIroeGW?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </article>
     </section>
-    <section id="publications">
-        <h2>Publications</h2>
-        <ul>
-            <li>
-                <strong>FPGA-based decision-making for efficient satellite orientation and propulsion</strong>
-                <a href="https://ieeexplore.ieee.org/abstract/document/10157289" target="_blank"></a>
-                <div class="btn-toggle" onclick="toggleSection('publication1-details')">Toggle Publication Details</div>
-                <div id="publication1-details" class="hidden">
-                    <p><strong>Abstract:</strong> Field Programmable Gate Arrays (FPGAs) are board-based hardware implementations of Very Large-Scale Integration (VLSI) that have greatly flexible computing capabilities. To show its ability to perform multifarious functions together, this paper proposes the design for a prototype that uses light input from multiple onboard light sensors around the device or satellite. This information is used in terms of the intensity of light detected by the sensors and their associated angles of reading to activate the actuators involved in the orientation of the solar panels and cold gas thrusters to get the most efficient positioning for sunlight to be the best incident on the solar panels. This is an alternative name to the use of FPGA in space technology other than for the currently prevalent data processing. The goal of this paper is to promote the multifunctional use of FPGAs in the vast field of space technology and its scope for the furtherment of human exploration of outer space.</p>
-                </div>
-            </li>
-            <li>
-                <strong>A robotic solution for internal imperfection detection in industrial machinery</strong>
-                <a href="https://pubs-aip-org.tudelft.idm.oclc.org/aip/acp/article/3035/1/020020/3268223/A-robotic-solution-for-internal-imperfection" target="_blank"></a>
-                <div class="btn-toggle" onclick="toggleSection('publication2-details')">Toggle Publication Details</div>
-                <div id="publication2-details" class="hidden">
-                    <p><strong>Abstract:</strong> The primary edge that robots give over manual labor in industries, in addition to human safety due to automation, is their mobility and size. Robots can be programmed for the perfection of their tasks. In this paper, we will devise a multi-sensing machine that can be built up to the requirements of the client's machines. This research proposes a low-cost solution for avoidable issues. The solution proposed in this paper detects the anomalies in a machine's internal workings with the help of a concise robot that makes it useful and efficient for the secure and safe functioning of the systems.</p>
-                </div>
-            </li>
+
+    <!-- PANEL: Fuel (What drives me) -->
+    <section id="fuel" class="panel" role="tabpanel" aria-labelledby="tab-fuel">
+      <h2 class="section-title"><i class="fa-solid fa-gas-pump"></i> Fuel — What drives me</h2>
+      <div class="card">
+        <p>I’m driven by the idea that elegant hardware can unlock new human experiences—from medical sensing to resilient, low-power intelligence at the edge. I care about clarity in design, strong fundamentals, and turning ambiguous problems into testable prototypes.</p>
+        <div class="chips" style="margin-top:10px;">
+          <span class="chip">Microelectronics</span>
+          <span class="chip">Digital Logic</span>
+          <span class="chip">Computer Architecture</span>
+          <span class="chip">Neuromorphic Computing</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL: Ignition (Projects + Proud Of) -->
+    <section id="ignition" class="panel" role="tabpanel" aria-labelledby="tab-ignition">
+      <h2 class="section-title"><i class="fa-solid fa-fire"></i> Ignition — Projects & Proud Moments</h2>
+
+      <div class="grid cols-2">
+        <!-- Project 1 -->
+        <article class="card">
+          <h3>A Study on the Error Tolerance of Spiking Neural Networks</h3>
+          <p class="subtle"><em>What’s cool:</em> compared SNNs vs ANNs for robustness, linking neuromorphic research to real-world reliability.</p>
+          <ul class="subtle" style="padding-left: 1.1rem;">
+            <li>Designed experiments on MNIST; analyzed error tolerance.</li>
+            <li>Takeaway: promising resilience patterns for hardware AI.</li>
+          </ul>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="card">
+          <h3><a class="inline" href="https://github.com/Samanyu-007/The-RTA" target="_blank">The RTA — Robotic Temperate Analyzer</a></h3>
+          <p class="subtle"><em>What’s cool:</em> robot to maintain personal space and monitor IAQ with on-board sensing.</p>
+          <ul class="subtle" style="padding-left: 1.1rem;">
+            <li>Presence detection + actuation to preserve safe distances.</li>
+            <li>Temp/humidity monitoring for indoor comfort.</li>
+          </ul>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="card">
+          <h3><a class="inline" href="https://github.com/Samanyu-007/The-Goniometric-Glove" target="_blank">The Goniometric Glove</a></h3>
+          <p class="subtle"><em>What’s cool:</em> wearable flex-sensing + ML for gesture/robotic control; assistive applications.</p>
+          <ul class="subtle" style="padding-left: 1.1rem;">
+            <li>Measures finger positions; maps to gestures.</li>
+            <li>Explores sign-language interpretation & robotic interfaces.</li>
+          </ul>
+        </article>
+
+        <!-- Earlier Prototypes -->
+        <article class="card">
+          <h3>Earlier Prototypes</h3>
+          <p class="subtle">Visual Aid (feedback navigation for the visually impaired), SensoRobot (pipe navigation robot), Smart Garbage Bin (auto-open + capacity).</p>
+          <p><a class="inline" target="_blank" href="https://github.com/Samanyu-007?tab=repositories">More on GitHub →</a></p>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:16px;">
+        <h3>What I’m most proud of</h3>
+        <ul class="subtle" style="padding-left:1.1rem;">
+          <li><strong>Papers:</strong> <a class="inline" target="_blank" href="https://ieeexplore.ieee.org/abstract/document/10157289">FPGA-based decision-making for satellite orientation</a> · <a class="inline" target="_blank" href="https://pubs-aip-org.tudelft.idm.oclc.org/aip/acp/article/3035/1/020020/3268223">Robotic solution for internal imperfection detection</a></li>
+          <li><strong>Blog posts:</strong> <a class="inline" target="_blank" href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb">The Progression of Space Tech and Ambition</a> · <a class="inline" target="_blank" href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1">Swarm Robotics</a></li>
+          <li><strong>Spotify:</strong> <a class="inline" target="_blank" href="https://open.spotify.com/playlist/254AP5UELZvM17rs6G5SVc?si=204ca3616f684181">Focus · Orbit</a> · <a class="inline" target="_blank" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967">Gym · Boosters</a> · <a class="inline" target="_blank" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327">Chill · Coast</a> · <a class="inline" target="_blank" href="https://open.spotify.com/playlist/04x3XUkWEHugFwOYIroeGW?si=18a8eb2f9b044873">Discover · Launchpad</a></li>
         </ul>
+      </article>
     </section>
-    <section id="projects">
-        <h2>Hobby Projects</h2>
-        <p>You can view my projects on my <a href="https://github.com/Samanyu-007" target="_blank">GitHub</a>.</p>
+
+    <!-- PANEL: Escape Velocity (What’s next) -->
+    <section id="escape-velocity" class="panel" role="tabpanel" aria-labelledby="tab-escape-velocity">
+      <h2 class="section-title"><i class="fa-solid fa-jet-fighter-up"></i> Escape Velocity — What’s next</h2>
+
+      <div class="card">
+        <h3>Coming Soon!</h3>
+        <p>Poster presentation at the <strong>Neuromorphic Computing Netherlands 2025</strong> conference. Stay tuned for updates & materials.</p>
+        <p><a class="inline" href="https://sites.google.com/view/ncn2025" target="_blank">NCN 2025 →</a></p>
+      </div>
     </section>
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:samanyuokade@gmail.com">samanyuokade@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/samanyu-okade/" target="_blank">LinkedIn Profile</a></p>
-        <p>Contact Number: +31 6 17507657</p>
-    </section>
-    <section id="blogs">
-        <h2>Blogs</h2>
-        <ul>
-            <li><a href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb" target="_blank">The Progression of Space Tech and Ambition</a></li>
-            <li><a href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1" target="_blank">Swarm Robotics</a></li>
-            <li><a href="https://medium.com/@sedsvit/just-us-d4ab577099a2" target="_blank">Just Us…?</a></li>
-        </ul>
-    </section>
-    <section id="interests">
-        <h2>Interests</h2>
-        <p>When my synapses aren't occupied, captivated by the profound theories and secrets of the universe unveiled by mankind's sophisticated technologies, and as I ponder the vast improvements and unexplored depths of what we can achieve through further electronic exploration—and what contributions I can make to this mesmerizing journey—I immerse myself in a symphony of creative pursuits. I try to play a plethora of musical instruments and like to indulge in various artistic endeavors. Whether it’s the culinary arts, painting, composing music, swimming, biking, hiking through nature’s wonders, or exploring new horizons, count me in. The quest for knowledge and the joy of learning are ever-present companions in my life's adventures.</p>
-    </section>
-    <footer>
-        <p>&copy; 2024 Samanyu Okade. All rights reserved.</p>
+
+    <footer class="muted">
+      <div class="foot-links">
+        <span>© <span id="year"></span> Samanyu Okade</span>
+        <a class="inline" href="mailto:samanyuokade@gmail.com">Email</a>
+        <a class="inline" target="_blank" href="https://www.linkedin.com/in/samanyu-okade/">LinkedIn</a>
+      </div>
     </footer>
-    <script>
-        function toggleSection(id) {
-            var element = document.getElementById(id);
-            if (element.classList.contains('hidden')) {
-                element.classList.remove('hidden');
-            } else {
-                element.classList.add('hidden');
-            }
-        }
-    </script>
+  </main>
+
+  <script>
+    // Tab logic: activate based on hash; default to ground-station
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+
+    function activateTab(id){
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+      panels.forEach(p => p.classList.toggle('active', p.id === id));
+      // Update brand title
+      const title = document.querySelector('.brand .title');
+      if (title) {
+        title.textContent = id === 'ground-station' ? 'Ground Station' : (
+          id === 'first-stage' ? '1st Stage' : (
+          id === 'fuel' ? 'Fuel' : (
+          id === 'ignition' ? 'Ignition' : 'Escape Velocity')));
+      }
+      // Set aria-selected
+      tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'));
+    }
+
+    function initFromHash(){
+      const h = (location.hash || '').replace('#','');
+      const valid = ['ground-station','first-stage','fuel','ignition','escape-velocity'];
+      activateTab(valid.includes(h) ? h : 'ground-station');
+    }
+    window.addEventListener('hashchange', initFromHash);
+    initFromHash();
+
+    // Click handlers
+    tabs.forEach(t => t.addEventListener('click', e => {
+      const id = t.dataset.tab; activateTab(id);
+    }));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
