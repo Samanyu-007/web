@@ -7,365 +7,119 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
   <style>
-    :root {
-      /* Palette from your note */
-      --ink: #0a0a0d;               /* near-black background */
-      --text: #fcfbfe;              /* off-white text */
-      --deep-1: #1d1135;            /* plum/dark purple */
-      --deep-2: #0c164f;            /* deep navy */
-      --acc-1: #ba1e68;             /* magenta accent */
-      --acc-2: #5643fd;             /* indigo */
-      --acc-3: #7649fe;             /* purple */
-      --muted: #b9b8c6;             /* muted text */
-      --card: #121219;              /* card bg */
-      --card-2: #151522;            /* alt card */
-      --border: #232333;            /* subtle border */
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 14px;
-      --radius-sm: 10px;
-      --pad: 20px;
-      --pad-lg: 28px;
-      --tab-h: 54px;
-      --maxw: 1240px;
+    :root{
+      --ink:#0a0a0d;--text:#fcfbfe;--deep-1:#1d1135;--deep-2:#0c164f;--acc-1:#ba1e68;--acc-2:#5643fd;--acc-3:#7649fe;
+      --muted:#b9b8c6;--card:#121219;--card-2:#151522;--border:#232333;--shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;--radius-sm:10px;--pad:20px;--pad-lg:28px;--tab-h:54px;--maxw:1240px;
     }
 
-    /* Tab + Title image icons */
-    .tab-icon{
-      height: 18px;
-      width: auto;
-      display: inline-block;
-      vertical-align: -3px;
-      margin-right: 8px;
+    /* Icons & brand */
+    .tab-icon{height:18px;width:auto;vertical-align:-3px;margin-right:8px}
+    .title-icon{height:22px;width:auto;vertical-align:-4px;margin-right:10px}
+    .logo-img{height:36px;width:auto;display:block;filter:drop-shadow(0 0 .5px rgba(0,0,0,.6))}
+    .brand{display:flex;align-items:center;gap:10px;margin-right:8px;padding:6px 10px;border-radius:var(--radius-sm)}
+    .brand a{display:flex;align-items:center}
+    .brand a:hover{opacity:.9}
+    .brand .title{font-weight:800;letter-spacing:.3px}
+
+    /* Playlists (simple link cards) */
+    .playlist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}
+    .playlist-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(180deg,#13131c,#151524);text-decoration:none;color:var(--text);transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+    .playlist-card .name{font-weight:700;letter-spacing:.2px}
+    .playlist-card i{font-size:1.2rem;color:#1DB954}
+    .playlist-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#2a2a46}
+
+    html,body{height:100%}
+    body{margin:0;background:var(--ink);color:var(--text);font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.65}
+
+    /* Subtle starfield */
+    body::before{
+      content:"";position:fixed;inset:0;background:transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.8"/><circle cx="50" cy="30" r="1" fill="white" opacity="0.6"/><circle cx="70" cy="80" r="1" fill="white" opacity="0.8"/><circle cx="20" cy="60" r="1" fill="white" opacity="0.5"/></svg>') repeat;
+      background-size:200px 200px;z-index:0;animation:moveStars 60s linear infinite;pointer-events:none
     }
-    .title-icon{
-      height: 22px;
-      width: auto;
-      display: inline-block;
-      vertical-align: -4px;
-      margin-right: 10px;
-    }
+    @keyframes moveStars{from{background-position:0 0}to{background-position:-200px 200px}}
+    main,nav,footer,.panel,.card{position:relative;z-index:1}
 
-    /* (keep) logo image */
-    .logo-img{
-      height: 36px;
-      width: auto;
-      display:block;
-      filter: drop-shadow(0 0 .5px rgba(0,0,0,.6));
-    }
-    .brand a{ display:flex; align-items:center; }
-    .brand a:hover{ opacity:.9; }
+    /* Top bar */
+    .nav{position:sticky;top:0;z-index:100;height:var(--tab-h);display:flex;align-items:center;gap:6px;padding:0 10px;background:linear-gradient(180deg,rgba(22,22,30,.75),rgba(22,22,30,.25) 60%,rgba(22,22,30,0));backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+    .tabs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{--active-bg:linear-gradient(135deg,rgba(86,67,253,.18),rgba(118,73,254,.18));--active-brd:linear-gradient(135deg,var(--acc-2),var(--acc-3));--hover-bg:rgba(255,255,255,.05);display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:999px;color:var(--text);text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s ease}
+    .tab:hover{background:var(--hover-bg)}
+    .tab.active{background:var(--active-bg);border-image:var(--active-brd) 1;border-width:1px;border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    .spacer{flex:1}
+    .cta{display:inline-flex;gap:10px;align-items:center;background:linear-gradient(135deg,var(--acc-2),var(--acc-3));color:#fff;padding:8px 12px;border-radius:999px;font-weight:700;box-shadow:var(--shadow);text-decoration:none;border:0}
 
-
-    /* Education accordion */
-    .edu-accordion { width: 100%; }
-    .acc-trigger{
-      width: 100%;
-      background: transparent;
-      color: var(--text);
-      border: 0;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0;
-      cursor: pointer;
-      text-align: left;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .acc-trigger:last-of-type{ border-bottom:1px solid var(--border); }
-    .acc-trigger:hover{ color: #fff; }
-    .acc-icon{
-      width: 18px; height: 18px; position: relative; flex: 0 0 18px;
-    }
-    .acc-icon::before, .acc-icon::after{
-      content:""; position:absolute; top:50%; left:50%;
-      width: 14px; height: 2px; background: var(--acc-1); transform: translate(-50%,-50%);
-    }
-    .acc-icon::after{ transform: translate(-50%,-50%) rotate(90deg); }
-    .acc-trigger.open .acc-icon::after{ opacity: 0; } /* minus when open */
-
-    .acc-panel{
-      display: none;
-      padding: 8px 0 18px;
-    }
-    .acc-panel.open{ display: block; }
-
-    /* small spacing tweak in the card so the borders breathe a bit */
-    .card .edu-accordion .subtle{ margin: 0; }
-
-    .playlist-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:14px;
-      margin-top:8px;
-    }
-    .playlist-card{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:16px 18px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg,#13131c,#151524);
-      text-decoration:none;
-      color:var(--text);
-      transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
-    }
-    .playlist-card .name{ font-weight:700; letter-spacing:.2px; }
-    .playlist-card i{ font-size:1.2rem; color:#1DB954; }
-    .playlist-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow); border-color:#2a2a46; }
-
-
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      background: var(--ink);
-      color: var(--text);
-      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.65;
-    }
-
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.8"/><circle cx="50" cy="30" r="1" fill="white" opacity="0.6"/><circle cx="70" cy="80" r="1" fill="white" opacity="0.8"/><circle cx="20" cy="60" r="1" fill="white" opacity="0.5"/></svg>') repeat;
-        background-size: 200px 200px;
-        z-index: 0;
-        animation: moveStars 60s linear infinite;
-        pointer-events: none;
-        }
-        @keyframes moveStars {
-        from { background-position: 0 0; }
-        to { background-position: -200px 200px; }
-        }
-        main, nav, footer, .panel, .card {
-        position: relative;
-        z-index: 1;
-        }
-
-
-    /* Top bar with tabs */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--tab-h);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0 10px;
-      background:
-        linear-gradient(180deg, rgba(22,22,30,.75), rgba(22,22,30,.25) 60%, rgba(22,22,30,0));
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .brand {
-      display: flex; align-items: center; gap: 10px; margin-right: 8px;
-      padding: 6px 10px; border-radius: var(--radius-sm);
-    }
-
-    .logo-img {
-    height: 36px; /* tweak to taste: 34–42px works well */
-    width: auto;
-    display: block;
-    filter: drop-shadow(0 0 0.5px rgba(0,0,0,.6)); /* subtle crispness on dark */
-    }
-    .brand a {
-    display: flex;
-    align-items: center;
-    }
-    .brand a:hover { opacity: 0.9; }
-
-
-    /* .brand .logo {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: radial-gradient(60% 60% at 35% 30%, var(--acc-2), var(--deep-2));
-      box-shadow: 0 0 0 2px #171722, inset 0 0 16px rgba(255,255,255,.08);
-    } */
-    .brand .title { font-weight: 800; letter-spacing: .3px; }
-
-    .tabs {
-      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-      overflow-x: auto; overscroll-behavior-x: contain;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .tabs::-webkit-scrollbar { display: none; }
-
-    .tab {
-      --active-bg: linear-gradient(135deg, rgba(86,67,253,.18), rgba(118,73,254,.18));
-      --active-brd: linear-gradient(135deg, var(--acc-2), var(--acc-3));
-      --hover-bg: rgba(255,255,255,.05);
-
-      display: inline-flex; align-items: center; gap: 8px;
-      height: 36px; padding: 0 12px; border-radius: 999px;
-      color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem;
-      border: 1px solid transparent;
-      transition: .18s ease;
-    }
-    .tab i { font-size: 0.95rem; opacity: .9; }
-    .tab:hover { background: var(--hover-bg); }
-    .tab.active {
-      background: var(--active-bg);
-      border-image: var(--active-brd) 1;
-      border-width: 1px; border-style: solid; border-color: transparent;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
-    }
-
-    .spacer { flex: 1; }
-
-    .cta {
-      display: inline-flex; gap: 10px; align-items: center;
-      background: linear-gradient(135deg, var(--acc-2), var(--acc-3));
-      color: white; padding: 8px 12px; border-radius: 999px; font-weight: 700;
-      box-shadow: var(--shadow);
-      text-decoration: none; border: 0;
-    }
-
-    /* Page wrapper */
-    .wrap { max-width: var(--maxw); margin: 40px auto; padding: 0 20px 100px; }
-
-    /* Panels */
-    .panel { display: none; animation: fade .25s ease; }
-    .panel.active { display: block; }
-    @keyframes fade { from{opacity:0; transform: translateY(4px);} to{opacity:1; transform:none;} }
+    /* Layout */
+    .wrap{max-width:var(--maxw);margin:40px auto;padding:0 20px 100px}
+    .panel{display:none;animation:fade .25s ease}
+    .panel.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .grid{display:grid;gap:20px}
+    @media (min-width:860px){.grid.cols-2{grid-template-columns:1fr 1fr}}
 
     /* Cards */
-    .grid { display: grid; gap: 20px; }
-    @media (min-width: 860px){ .grid.cols-2{ grid-template-columns: 1fr 1fr; } }
-
-    .card {
-      background: linear-gradient(180deg, var(--card), var(--card-2));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: var(--pad-lg);
-      box-shadow: var(--shadow);
-    }
-    .card h3 { margin: 0 0 8px; font-size: 1.08rem; }
-    .card p { color: var(--muted); margin: 0.35rem 0 0.2rem; }
-    .subtle { color: var(--muted); font-size: .95rem; }
+    .card{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--border);border-radius:var(--radius);padding:var(--pad-lg);box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px;font-size:1.08rem}
+    .card p{color:var(--muted);margin:.35rem 0 .2rem}
+    .subtle{color:var(--muted);font-size:.95rem}
 
     /* Section headers */
-    .section-title {
-      display:flex; align-items:center; gap:10px; margin: 0 0 12px;
-      font-size: 1.4rem; font-weight: 800; letter-spacing: .2px;
-    }
-    .section-title i { color: var(--acc-1); }
+    .section-title{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:1.4rem;font-weight:800;letter-spacing:.2px}
+    .section-title i{color:var(--acc-1)}
 
-    /* Chips */
-    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
-    .chip { padding:6px 10px; font-size:.85rem; border-radius:999px; border:1px solid var(--border); background:#0f0f18; color:#dcdaf3; }
-
-    /* Links */
-    a.inline { color: var(--text); text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.35); }
-    a.inline:hover { color: #ffffff; text-decoration-color: var(--acc-2); }
+    /* Education accordion */
+    .edu-accordion{width:100%}
+    .acc-trigger{width:100%;background:transparent;color:var(--text);border:0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:16px 0;cursor:pointer;text-align:left;font-weight:800;letter-spacing:.2px}
+    .acc-trigger:last-of-type{border-bottom:1px solid var(--border)}
+    .acc-trigger:hover{color:#fff}
+    .acc-icon{width:18px;height:18px;position:relative;flex:0 0 18px}
+    .acc-icon::before,.acc-icon::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:2px;background:var(--acc-1);transform:translate(-50%,-50%)}
+    .acc-icon::after{transform:translate(-50%,-50%) rotate(90deg)}
+    .acc-trigger.open .acc-icon::after{opacity:0} /* minus when open */
+    .acc-panel{display:none;padding:8px 0 18px}
+    .acc-panel.open{display:block}
 
     /* Footer */
-    footer { border-top: 1px solid var(--border); margin-top: 48px; padding-top: 20px; color: var(--muted); font-size: .95rem; }
-    .foot-links { display:flex; gap:14px; flex-wrap: wrap; }
+    footer{border-top:1px solid var(--border);margin-top:48px;padding-top:20px;color:var(--muted);font-size:.95rem}
+    .foot-links{display:flex;gap:14px;flex-wrap:wrap}
 
-    /* Hero header within Ground Station */
-    .hero {
-      background: linear-gradient(120deg, rgba(13,15,32,.6), rgba(12,22,79,.25) 60%, rgba(29,17,53,.18));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: var(--shadow);
-    }
-    .hero h1 { margin: 0 0 6px; font-size: 1.8rem; }
-    .hero p { margin: 0; color: var(--muted); }
+    /* Hero */
+    .hero{background:linear-gradient(120deg,rgba(13,15,32,.6),rgba(12,22,79,.25) 60%,rgba(29,17,53,.18));border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+    .hero h1{margin:0 0 6px;font-size:1.8rem}
+    .hero p{margin:0;color:var(--muted)}
 
-    /* Small utility */
-    .muted { color: var(--muted); }
-    @media (min-width: 1200px){ body { font-size: 17px; } }
-    @media (max-width: 860px){ .section-title{font-size:1.25rem;} .card h3{font-size:1.02rem;} }
-  /* Custom icon for 1st Stage (white fill, outline disappears into background) */
-    /* .icon-first-stage{
-    display: inline-block;
-    width: 18px;             /* tweak size as you like */
-    /* height: 18px;
-    background: var(--text); /* white interior */
-    /* mask: url('shape.png') center / contain no-repeat;
-    -webkit-mask: url('shape.png') center / contain no-repeat; /* Safari */
-    /* margin-right: 6px;
-    } */ 
-
-    /* Optional: tiny glow on hover/active */
-    /* .tab:hover .icon-first-stage{
-    filter: drop-shadow(0 0 2px rgba(255,255,255,.25));
-    }
-    .tab.active .icon-first-stage{
-    filter: drop-shadow(0 0 3px rgba(118,73,254,.35));
-    } */
-
-    /* 1st Stage custom icon (white fill; outline blends into black bg) */
-  .icon-first-stage {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    background-color: var(--text);     /* white interior */
-    /* Standard mask */
-    mask-image: url('shape.png');
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: contain;
-    mask-mode: alpha;
-    /* WebKit (Safari) */
-    -webkit-mask-image: url('shape.png');
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-size: contain;
-
-    margin-right: 6px;
-  }
-
-  /* Subtle glow feedback */
-  .tab:hover .icon-first-stage {
-    filter: drop-shadow(0 0 2px rgba(255,255,255,.28));
-  }
-  .tab.active .icon-first-stage {
-    filter: drop-shadow(0 0 3px rgba(118,73,254,.35));
-  }
-
-  /* Fallback if mask unsupported (shows the PNG and inverts to near-white) */
-  @supports not (mask-image: url("")) {
-    .icon-first-stage {
-      background-color: transparent;
-      background-image: url('shape.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      filter: brightness(0) invert(1);
-    }
-  }
+    /* Responsive type tweaks */
+    @media (min-width:1200px){body{font-size:17px}}
+    @media (max-width:860px){.section-title{font-size:1.25rem}.card h3{font-size:1.02rem}}
   </style>
 </head>
 <body>
   <!-- NAV / TABS -->
   <nav class="nav" role="tablist" aria-label="Primary">
     <div class="brand">
-      <a href="#ground-station" data-tab="ground-station">
-        <img src="logo_transparent_highres.png" alt="Samanyu Logo" class="logo-img">
+      <a href="#ground-station" aria-label="Go to Ground Station" data-tab="ground-station">
+        <img src="logo_transparent_highres.png" alt="Samanyu logo" class="logo-img">
       </a>
       <div class="title"><i class="fa-solid fa-rocket"></i> Ground Station</div>
     </div>
 
-
     <div class="tabs">
-      <a class="tab" role="tab" href="#ground-station" data-tab="ground-station"><i class="fa-solid fa-satellite-dish"></i> Ground Station</a>
+      <a class="tab" role="tab" href="#ground-station" data-tab="ground-station">
+        <i class="fa-solid fa-satellite-dish"></i> Ground Station
+      </a>
       <a class="tab" role="tab" href="#first-stage" data-tab="first-stage">
-      <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage </a>
-
-
-      <a class="tab" role="tab" href="#fuel" data-tab="fuel"><i class="fa-solid fa-gas-pump"></i> Fuel</a>
+        <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage
+      </a>
+      <a class="tab" role="tab" href="#fuel" data-tab="fuel">
+        <i class="fa-solid fa-gas-pump"></i> Fuel
+      </a>
       <a class="tab" role="tab" href="#ignition" data-tab="ignition">
-      <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"> Ignition </a>
+        <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"> Ignition
+      </a>
       <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity">
-      <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"> Escape Velocity </a>
+        <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"> Escape Velocity
+      </a>
     </div>
 
     <div class="spacer"></div>
@@ -373,7 +127,7 @@
   </nav>
 
   <main class="wrap">
-    <!-- PANEL: Ground Station (Home) -->
+    <!-- PANEL: Ground Station -->
     <section id="ground-station" class="panel" role="tabpanel" aria-labelledby="tab-ground-station">
       <div class="hero">
         <h1>Samanyu Okade</h1>
@@ -408,77 +162,63 @@
       </div>
     </section>
 
-    <!-- PANEL: 1st Stage (About + Education) -->
+    <!-- PANEL: 1st Stage -->
     <section id="first-stage" class="panel" role="tabpanel" aria-labelledby="tab-first-stage">
       <h2 class="section-title">
-        <img class="title-icon" src="start-up.png" alt="Ignition icon">
-        Ignition — Projects & Proud Moments
+        <img class="title-icon" src="octagonal.png" alt="1st Stage icon"> 1st Stage — About & Education
       </h2>
 
       <div class="grid cols-2">
         <article class="card">
           <h3>About</h3>
-            <p>I’m an aspiring space hardware engineer with my sights set firmly on building the next generation of intelligent, resilient systems. My fascination lies at the intersection of digital design, system architecture, and the dream of pushing humanity further into the cosmos.</p>
-            <p>Currently pursuing my MSc in Microelectronics at TU Delft, I focus on crafting robust, high-performance digital systems and SoC architectures. Whether it’s designing radiation-tolerant processors or fine-tuning RTL for timing closure, my goal is always the same: to make hardware that’s not just powerful, but dependable in the harshest environments — like deep space.</p>
-            <p>My toolkit spans Verilog, SystemVerilog, and Python, backed by hands-on experience with industry tools like Cadence Genus/Innovus, Questa, and ModelSim. Beyond the lab, I draw on my leadership in student space organisations and my creative side — music, art, and sport — to stay adaptable, collaborative, and inspired.</p>
-            <p><a class="inline" href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank">Download Resume →</a></p>
+          <p>I’m an aspiring space hardware engineer with my sights set firmly on building the next generation of intelligent, resilient systems. My fascination lies at the intersection of digital design, system architecture, and the dream of pushing humanity further into the cosmos.</p>
+          <p>Currently pursuing my MSc in Microelectronics at TU Delft, I focus on crafting robust, high-performance digital systems and SoC architectures. Whether it’s designing radiation-tolerant processors or fine-tuning RTL for timing closure, my goal is always the same: to make hardware that’s not just powerful, but dependable in the harshest environments — like deep space.</p>
+          <p>My toolkit spans Verilog, SystemVerilog, and Python, backed by hands-on experience with industry tools like Cadence Genus/Innovus, Questa, and ModelSim. Beyond the lab, I draw on my leadership in student space organisations and my creative side — music, art, and sport — to stay adaptable, collaborative, and inspired.</p>
+          <p><a class="inline" href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank">Download Resume →</a></p>
         </article>
+
         <article class="card">
           <h3>Education</h3>
-
           <div class="edu-accordion" id="edu-accordion">
-            <!-- TU Delft -->
             <button class="acc-trigger open">
               <span><strong>2023–2025 · TU Delft — MSc Electrical Engineering (Microelectronics)</strong></span>
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel open">
-              <p class="subtle">
-                Focus on digital design, SoC architecture, and system‑level integration. Building resilient, intelligent hardware with an eye on space applications.
-              </p>
+              <p class="subtle">Focus on digital design, SoC architecture, and system‑level integration. Building resilient, intelligent hardware with an eye on space applications.</p>
             </div>
 
-            <!-- VIT -->
             <button class="acc-trigger">
               <span><strong>2019–2023 · Vellore Institute of Technology — B.Tech, ECE</strong> · Vellore, Tamil Nadu</span>
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel">
-              <p class="subtle">
-                Foundations in digital logic, embedded systems, communications, and hands‑on hardware projects that set the stage for my current research interests.
-              </p>
+              <p class="subtle">Foundations in digital logic, embedded systems, communications, and hands‑on hardware projects that set the stage for my current research interests.</p>
             </div>
 
-            <!-- Vidyodaya -->
             <button class="acc-trigger">
               <span><strong>2017–2019 · Vidhyodaya Public School</strong></span>
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel">
-              <p class="subtle">
-                Senior secondary with a STEM focus; early tinkering, science fairs, and first steps toward electronics.
-              </p>
+              <p class="subtle">Senior secondary with a STEM focus; early tinkering, science fairs, and first steps toward electronics.</p>
             </div>
 
-            <!-- GIIS -->
             <button class="acc-trigger">
               <span><strong>2006–2017 · Global Indian International School, Kuala Lumpur</strong></span>
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel">
-              <p class="subtle">
-                Formative years across academics, music, and sport; learned to balance creativity and engineering.
-              </p>
+              <p class="subtle">Formative years across academics, music, and sport; learned to balance creativity and engineering.</p>
             </div>
           </div>
         </article>
-
       </div>
 
       <article class="card" style="margin-top:16px;">
         <h3>Experience (Highlights)</h3>
         <p class="subtle"><em>What’s cool about this:</em> Mentoring students to build real biomedical projects; shipping hardware that bridges industrial protocols; leading national space outreach.</p>
-        <ul class="subtle" style="padding-left: 1.1rem;">
+        <ul class="subtle" style="padding-left:1.1rem;">
           <li><strong>Teaching Assistant (TU Delft, 2024–2025):</strong> Guided heart-sound localization projects; mentored wearable sensor proposals and grading.</li>
           <li><strong>Hardware Intern (RTips, 2022–2023):</strong> Designed MODBUS↔DALI protocol bridge; PCB design; bring-up.</li>
           <li><strong>Executive Director (SEDS India, 2021–2022):</strong> Led national student space initiatives & partnerships.</li>
@@ -489,77 +229,67 @@
       <article class="card" style="margin-top:16px;">
         <h3>Playlists</h3>
         <div class="playlist-grid">
-          <a class="playlist-card" href="https://open.spotify.com/playlist/254AP5UELZvM17rs6G5SVc?si=204ca3616f684181" target="_blank" rel="noopener" aria-label="Open playlist 'rhythm of my heart' on Spotify">
-            <span class="name">rhythm of my heart</span>
-            <i class="fa-brands fa-spotify"></i>
+          <a class="playlist-card" href="https://open.spotify.com/playlist/254AP5UELZvM17rs6G5SVc?si=204ca3616f684181" target="_blank" rel="noopener" aria-label="Open playlist rhythm of my heart on Spotify">
+            <span class="name">rhythm of my heart</span><i class="fa-brands fa-spotify"></i>
           </a>
-          <a class="playlist-card" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967" target="_blank" rel="noopener" aria-label="Open playlist 'a car ride through bengaluru' on Spotify">
-            <span class="name">a car ride through bengaluru</span>
-            <i class="fa-brands fa-spotify"></i>
+          <a class="playlist-card" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967" target="_blank" rel="noopener" aria-label="Open playlist a car ride through bengaluru on Spotify">
+            <span class="name">a car ride through bengaluru</span><i class="fa-brands fa-spotify"></i>
           </a>
-          <a class="playlist-card" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327" target="_blank" rel="noopener" aria-label="Open playlist 'Cool rain and Hot chocolate' on Spotify">
-            <span class="name">Cool rain and Hot chocolate</span>
-            <i class="fa-brands fa-spotify"></i>
+          <a class="playlist-card" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327" target="_blank" rel="noopener" aria-label="Open playlist Cool rain and Hot chocolate on Spotify">
+            <span class="name">Cool rain and Hot chocolate</span><i class="fa-brands fa-spotify"></i>
           </a>
-          <a class="playlist-card" href="https://open.spotify.com/playlist/5k91jusYtZzg99e8Suht8M?si=ce22b0b703c74565" target="_blank" rel="noopener" aria-label="Open playlist 'sounds like victory' on Spotify">
-            <span class="name">sounds like victory</span>
-            <i class="fa-brands fa-spotify"></i>
+          <a class="playlist-card" href="https://open.spotify.com/playlist/5k91jusYtZzg99e8Suht8M?si=ce22b0b703c74565" target="_blank" rel="noopener" aria-label="Open playlist sounds like victory on Spotify">
+            <span class="name">sounds like victory</span><i class="fa-brands fa-spotify"></i>
           </a>
         </div>
       </article>
-
     </section>
 
-    <!-- PANEL: Fuel (What drives me) -->
+    <!-- PANEL: Fuel -->
     <section id="fuel" class="panel" role="tabpanel" aria-labelledby="tab-fuel">
       <h2 class="section-title"><i class="fa-solid fa-gas-pump"></i> Fuel — What drives me</h2>
       <div class="card">
         <p>I’m driven by the idea that elegant hardware can unlock new human experiences—from medical sensing to resilient, low-power intelligence at the edge. I care about clarity in design, strong fundamentals, and turning ambiguous problems into testable prototypes.</p>
         <div class="chips" style="margin-top:10px;">
-          <span class="chip">Microelectronics</span>
-          <span class="chip">Digital Logic</span>
-          <span class="chip">Computer Architecture</span>
-          <span class="chip">Neuromorphic Computing</span>
+          <span class="chip">Microelectronics</span><span class="chip">Digital Logic</span><span class="chip">Computer Architecture</span><span class="chip">Neuromorphic Computing</span>
         </div>
       </div>
     </section>
 
-    <!-- PANEL: Ignition (Projects + Proud Of) -->
+    <!-- PANEL: Ignition -->
     <section id="ignition" class="panel" role="tabpanel" aria-labelledby="tab-ignition">
-      <h2 class="section-title"><i class="fa-solid fa-fire"></i> Ignition — Projects & Proud Moments</h2>
+      <h2 class="section-title">
+        <img class="title-icon" src="start-up.png" alt="Ignition icon"> Ignition — Projects & Proud Moments
+      </h2>
 
       <div class="grid cols-2">
-        <!-- Project 1 -->
         <article class="card">
           <h3>A Study on the Error Tolerance of Spiking Neural Networks</h3>
           <p class="subtle"><em>What’s cool:</em> compared SNNs vs ANNs for robustness, linking neuromorphic research to real-world reliability.</p>
-          <ul class="subtle" style="padding-left: 1.1rem;">
+          <ul class="subtle" style="padding-left:1.1rem;">
             <li>Designed experiments on MNIST; analyzed error tolerance.</li>
             <li>Takeaway: promising resilience patterns for hardware AI.</li>
           </ul>
         </article>
 
-        <!-- Project 2 -->
         <article class="card">
           <h3><a class="inline" href="https://github.com/Samanyu-007/The-RTA" target="_blank">The RTA — Robotic Temperate Analyzer</a></h3>
           <p class="subtle"><em>What’s cool:</em> robot to maintain personal space and monitor IAQ with on-board sensing.</p>
-          <ul class="subtle" style="padding-left: 1.1rem;">
+          <ul class="subtle" style="padding-left:1.1rem;">
             <li>Presence detection + actuation to preserve safe distances.</li>
             <li>Temp/humidity monitoring for indoor comfort.</li>
           </ul>
         </article>
 
-        <!-- Project 3 -->
         <article class="card">
           <h3><a class="inline" href="https://github.com/Samanyu-007/The-Goniometric-Glove" target="_blank">The Goniometric Glove</a></h3>
           <p class="subtle"><em>What’s cool:</em> wearable flex-sensing + ML for gesture/robotic control; assistive applications.</p>
-          <ul class="subtle" style="padding-left: 1.1rem;">
+          <ul class="subtle" style="padding-left:1.1rem;">
             <li>Measures finger positions; maps to gestures.</li>
             <li>Explores sign-language interpretation & robotic interfaces.</li>
           </ul>
         </article>
 
-        <!-- Earlier Prototypes -->
         <article class="card">
           <h3>Earlier Prototypes</h3>
           <p class="subtle">Visual Aid (feedback navigation for the visually impaired), SensoRobot (pipe navigation robot), Smart Garbage Bin (auto-open + capacity).</p>
@@ -577,11 +307,10 @@
       </article>
     </section>
 
-    <!-- PANEL: Escape Velocity (What’s next) -->
+    <!-- PANEL: Escape Velocity -->
     <section id="escape-velocity" class="panel" role="tabpanel" aria-labelledby="tab-escape-velocity">
       <h2 class="section-title">
-        <img class="title-icon" src="speed.png" alt="Escape Velocity icon">
-        Escape Velocity — What’s next
+        <img class="title-icon" src="speed.png" alt="Escape Velocity icon"> Escape Velocity — What’s next
       </h2>
 
       <div class="card">
@@ -601,25 +330,21 @@
   </main>
 
   <script>
-    // Tab logic: activate based on hash; default to ground-station
+    // Tab logic
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.panel');
 
     function activateTab(id){
       tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
       panels.forEach(p => p.classList.toggle('active', p.id === id));
-      // Update brand title
       const title = document.querySelector('.brand .title');
-      if (title) {
-        title.textContent = id === 'ground-station' ? 'Ground Station' : (
-          id === 'first-stage' ? '1st Stage' : (
-          id === 'fuel' ? 'Fuel' : (
-          id === 'ignition' ? 'Ignition' : 'Escape Velocity')));
+      if(title){
+        title.textContent = id === 'ground-station' ? 'Ground Station' :
+                            id === 'first-stage'     ? '1st Stage' :
+                            id === 'fuel'            ? 'Fuel' :
+                            id === 'ignition'        ? 'Ignition' : 'Escape Velocity';
       }
-      // Set aria-selected
-      tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'));
     }
-
     function initFromHash(){
       const h = (location.hash || '').replace('#','');
       const valid = ['ground-station','first-stage','fuel','ignition','escape-velocity'];
@@ -627,34 +352,20 @@
     }
     window.addEventListener('hashchange', initFromHash);
     initFromHash();
-
-    // Click handlers
-    tabs.forEach(t => t.addEventListener('click', e => {
-      const id = t.dataset.tab; activateTab(id);
-    }));
+    tabs.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-
     // Education accordion
     document.querySelectorAll('.edu-accordion .acc-trigger').forEach(btn => {
       btn.addEventListener('click', () => {
-        const isOpen = btn.classList.contains('open');
-        // allow multiple open; toggle only this one
-        btn.classList.toggle('open', !isOpen);
         const panel = btn.nextElementSibling;
-        const willOpen = !btn.classList.contains('open');
-        btn.classList.toggle('open', willOpen);
-        panel.classList.toggle('open', willOpen);
-        // update symbol on this button
-        const plusMinus = btn.querySelector('.acc-icon');
-        // we draw plus/minus via CSS; no text update needed
-        // if you also show a character somewhere, set that here
+        const isOpen = btn.classList.contains('open');
+        btn.classList.toggle('open', !isOpen);
+        panel.classList.toggle('open', !isOpen);
       });
     });
-
-
   </script>
 </body>
 </html>
