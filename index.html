@@ -213,54 +213,53 @@
     filter: drop-shadow(0 0 3px rgba(118,73,254,.35));
     } */
 
-    .icon-first-stage{
-    display:inline-block;
-    width:18px;                 /* adjust size as you like */
-    height:18px;
-    background-color: var(--text);   /* the fill (white) */
+    /* 1st Stage custom icon (white fill; outline blends into black bg) */
+  .icon-first-stage {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: var(--text);     /* white interior */
     /* Standard mask */
     mask-image: url('shape.png');
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
     mask-mode: alpha;
-    /* Safari / WebKit */
+    /* WebKit (Safari) */
     -webkit-mask-image: url('shape.png');
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     -webkit-mask-size: contain;
-    -webkit-mask-composite: source-over;
-    margin-right:6px;
-    }
 
-    /* Subtle hover/active glow so the icon doesn’t vanish visually */
-    .tab:hover .icon-first-stage{
+    margin-right: 6px;
+  }
+
+  /* Subtle glow feedback */
+  .tab:hover .icon-first-stage {
     filter: drop-shadow(0 0 2px rgba(255,255,255,.28));
-    }
-    .tab.active .icon-first-stage{
+  }
+  .tab.active .icon-first-stage {
     filter: drop-shadow(0 0 3px rgba(118,73,254,.35));
-    }
+  }
 
-    /* Fallback if mask is unsupported or image fails to load:
-    we swap to an inline background image (blue lines) and invert to near-white */
-    @supports not (-webkit-mask-image: url('x')) and not (mask-image: url('x')){
-    .icon-first-stage{
-            background-color: transparent;
-            background-image: url('shape.png');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: brightness(0) invert(1);
-        }
+  /* Fallback if mask unsupported (shows the PNG and inverts to near-white) */
+  @supports not (mask-image: url("")) {
+    .icon-first-stage {
+      background-color: transparent;
+      background-image: url('shape.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      filter: brightness(0) invert(1);
     }
-
+  }
   </style>
 </head>
 <body>
   <!-- NAV / TABS -->
   <nav class="nav" role="tablist" aria-label="Primary">
     <div class="brand">
-        <a href="#ground-station" data-tab="ground-station" aria-label="Go to Ground Station">
+        <a href="#grounded-station" data-tab="grounded-station" aria-label="Go to Ground Station">
             <img src="logo_transparent_highres.png" alt="Samanyu logo" class="logo-img">
         </a>
         <div class="title">Ground Station</div>
