@@ -20,7 +20,11 @@
     .brand{display:flex;align-items:center;gap:10px;margin-right:8px;padding:6px 10px;border-radius:var(--radius-sm)}
     .brand a{display:flex;align-items:center}
     .brand a:hover{opacity:.9}
-    .brand .title{font-weight:800;letter-spacing:.3px}
+    .brand .title{ display:none; }
+    .brand{ min-width: 64px; }  /* just the logo area */
+    .tabs{ flex: 1; }           /* tabs fill the rest, won’t jump */
+
+
 
     /* Playlists (simple link cards) */
     .playlist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}
@@ -46,13 +50,31 @@
     .tabs::-webkit-scrollbar{display:none}
     .tab{--active-bg:linear-gradient(135deg,rgba(86,67,253,.18),rgba(118,73,254,.18));--active-brd:linear-gradient(135deg,var(--acc-2),var(--acc-3));--hover-bg:rgba(255,255,255,.05);display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:999px;color:var(--text);text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s ease}
     .tab:hover{background:var(--hover-bg)}
-    .tab.active{background:var(--active-bg);border-image:var(--active-brd) 1;border-width:1px;border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    /* .tab.active{background:var(--active-bg);border-image:var(--active-brd) 1;border-width:1px;border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)} */
+    /* before: border-image rectangle look */
+    /* after: subtle pill highlight + soft border */
+    .tab.active{
+      background: linear-gradient(135deg, rgba(86,67,253,.14), rgba(118,73,254,.12));
+      border: 1px solid #2a2a46;           /* subtle, not boxy */
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04),
+                  0 6px 16px rgba(0,0,0,.35);
+    }
+
+    /* keep a11y nice when keyboarding */
+    .tab:focus-visible{
+      outline: 2px solid var(--acc-2);
+      outline-offset: 2px;
+    }
+
     .spacer{flex:1}
     .cta{display:inline-flex;gap:10px;align-items:center;background:linear-gradient(135deg,var(--acc-2),var(--acc-3));color:#fff;padding:8px 12px;border-radius:999px;font-weight:700;box-shadow:var(--shadow);text-decoration:none;border:0}
 
     /* Layout */
     .wrap{max-width:var(--maxw);margin:40px auto;padding:0 20px 100px}
     .panel{display:none;animation:fade .25s ease}
+    /* make anchor jumps account for sticky nav height */
+    .panel{scroll-margin-top: calc(var(--tab-h) + 12px)}
+
     .panel.active{display:block}
     @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
     .grid{display:grid;gap:20px}
@@ -98,10 +120,12 @@
   <!-- NAV / TABS -->
   <nav class="nav" role="tablist" aria-label="Primary">
     <div class="brand">
-      <a href="#ground-station" aria-label="Go to Ground Station" data-tab="ground-station">
-        <img src="logo_transparent_highres.png" alt="Samanyu logo" class="logo-img">
+      <a href="#ground-station" data-tab="ground-station">
+        <img src="logo_transparent_highres.png" alt="Samanyu Logo" class="logo-img">
       </a>
-      <div class="title"><i class="fa-solid fa-rocket"></i> Ground Station</div>
+      <div class="title">
+        <img src="octagonal.png" alt="1st Stage Icon" class="icon-img"> Ground Station
+      </div>
     </div>
 
     <div class="tabs">
@@ -337,13 +361,16 @@
     function activateTab(id){
       tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
       panels.forEach(p => p.classList.toggle('active', p.id === id));
-      const title = document.querySelector('.brand .title');
-      if(title){
-        title.textContent = id === 'ground-station' ? 'Ground Station' :
-                            id === 'first-stage'     ? '1st Stage' :
-                            id === 'fuel'            ? 'Fuel' :
-                            id === 'ignition'        ? 'Ignition' : 'Escape Velocity';
-      }
+      // const title = document.querySelector('.brand .title');
+      // if(title){
+      //   title.textContent = id === 'ground-station' ? 'Ground Station' :
+      //                       id === 'first-stage'     ? '1st Stage' :
+      //                       id === 'fuel'            ? 'Fuel' :
+      //                       id === 'ignition'        ? 'Ignition' : 'Escape Velocity';
+      // Smoothly bring the panel header below the sticky nav
+      const panel = document.getElementById(id);
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // }
     }
     function initFromHash(){
       const h = (location.hash || '').replace('#','');
