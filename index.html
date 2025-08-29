@@ -88,6 +88,37 @@
     .section-title{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:1.4rem;font-weight:800;letter-spacing:.2px}
     .section-title i{color:var(--acc-1)}
 
+    /* Resume PDF preview card */
+    .pdf-card{
+      position:relative;
+      display:block;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background: #0f0f18;
+    }
+    .pdf-embed{
+      display:block;
+      width:100%;
+      height:560px;            /* adjust for taste */
+      border:0;
+      background:#0f0f18;
+    }
+    .pdf-overlay{
+      position:absolute; inset:auto 0 0 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(12,12,18,.72) 60%);
+      color:#fff;
+      padding:10px 14px;
+      font-weight:700;
+      text-align:right;
+    }
+    .pdf-fallback{
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      height:220px; color:var(--text);
+    }
+    .pdf-fallback i{ color:var(--acc-1); }
+
+
     /* Education accordion */
     .edu-accordion{width:100%}
     .acc-trigger{width:100%;background:transparent;color:var(--text);border:0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:16px 0;cursor:pointer;text-align:left;font-weight:800;letter-spacing:.2px}
@@ -99,6 +130,57 @@
     .acc-trigger.open .acc-icon::after{opacity:0} /* minus when open */
     .acc-panel{display:none;padding:8px 0 18px}
     .acc-panel.open{display:block}
+
+    /* “Proud of” grid/cards */
+    .proud-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+      margin-top:8px;
+    }
+    .proud-card{
+      background: linear-gradient(180deg, #141421, #17172a);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:16px;
+    }
+    .proud-head{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px; margin-bottom:10px;
+    }
+    .proud-head i{ color:var(--acc-1); }
+
+    .proud-links{ margin:0; padding-left:1.1rem; }
+    .proud-links li{ margin:6px 0; }
+
+    /* neutral, on-brand link styling inside proud cards */
+    .proud-card a{
+      color: var(--text);
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,.28);
+      text-underline-offset: 3px;
+    }
+    .proud-card a:hover{
+      text-decoration-color: var(--acc-2);
+    }
+
+    /* badges for spotify links */
+    .badge-row{ display:flex; flex-wrap:wrap; gap:10px; }
+    .badge{
+      display:inline-block;
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:#10101a;
+      color:var(--text);
+      text-decoration:none;
+      font-size:.92rem;
+    }
+    .badge:hover{
+      border-color:#2a2a46;
+      box-shadow:var(--shadow);
+    }
+
 
     /* Footer */
     footer{border-top:1px solid var(--border);margin-top:48px;padding-top:20px;color:var(--muted);font-size:.95rem}
@@ -248,23 +330,6 @@
         </ul>
       </article>
 
-      <article class="card" style="margin-top:16px;">
-        <h3>Playlists</h3>
-        <div class="playlist-grid">
-          <a class="playlist-card" href="https://open.spotify.com/playlist/254AP5UELZvM17rs6G5SVc?si=204ca3616f684181" target="_blank" rel="noopener" aria-label="Open playlist rhythm of my heart on Spotify">
-            <span class="name">rhythm of my heart</span><i class="fa-brands fa-spotify"></i>
-          </a>
-          <a class="playlist-card" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967" target="_blank" rel="noopener" aria-label="Open playlist a car ride through bengaluru on Spotify">
-            <span class="name">a car ride through bengaluru</span><i class="fa-brands fa-spotify"></i>
-          </a>
-          <a class="playlist-card" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327" target="_blank" rel="noopener" aria-label="Open playlist Cool rain and Hot chocolate on Spotify">
-            <span class="name">Cool rain and Hot chocolate</span><i class="fa-brands fa-spotify"></i>
-          </a>
-          <a class="playlist-card" href="https://open.spotify.com/playlist/5k91jusYtZzg99e8Suht8M?si=ce22b0b703c74565" target="_blank" rel="noopener" aria-label="Open playlist sounds like victory on Spotify">
-            <span class="name">sounds like victory</span><i class="fa-brands fa-spotify"></i>
-          </a>
-        </div>
-      </article>
     </section>
 
     <!-- PANEL: Fuel -->
@@ -311,6 +376,24 @@
             <li>Explores sign-language interpretation & robotic interfaces.</li>
           </ul>
         </article>
+        <article class="card" style="margin-top:16px;">
+          <h3>Resume</h3>
+          <a class="pdf-card" href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank" rel="noopener" title="Open full resume (PDF)">
+            <!-- First page preview (no toolbar; shows page 1) -->
+            <object data="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf#page=1&zoom=110&toolbar=0&navpanes=0&scrollbar=0"
+                    type="application/pdf"
+                    class="pdf-embed"
+                    aria-label="Resume first page preview">
+              <!-- Fallback if PDF embed isn’t supported -->
+              <div class="pdf-fallback">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>View Resume (PDF)</span>
+              </div>
+            </object>
+            <div class="pdf-overlay">Open full 2-page PDF →</div>
+          </a>
+        </article>  
+
 
         <article class="card">
           <h3>Earlier Prototypes</h3>
@@ -321,12 +404,48 @@
 
       <article class="card" style="margin-top:16px;">
         <h3>What I’m most proud of</h3>
-        <ul class="subtle" style="padding-left:1.1rem;">
-          <li><strong>Papers:</strong> <a class="inline" target="_blank" href="https://ieeexplore.ieee.org/abstract/document/10157289">FPGA-based decision-making for satellite orientation</a> · <a class="inline" target="_blank" href="https://pubs-aip-org.tudelft.idm.oclc.org/aip/acp/article/3035/1/020020/3268223">Robotic solution for internal imperfection detection</a></li>
-          <li><strong>Blog posts:</strong> <a class="inline" target="_blank" href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb">The Progression of Space Tech and Ambition</a> · <a class="inline" target="_blank" href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1">Swarm Robotics</a></li>
-          <li><strong>Spotify:</strong> <a class="inline" target="_blank" href="https://open.spotify.com/playlist/254AP5UELZvM17rs6G5SVc?si=204ca3616f684181">Focus · Orbit</a> · <a class="inline" target="_blank" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967">Gym · Boosters</a> · <a class="inline" target="_blank" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327">Chill · Coast</a> · <a class="inline" target="_blank" href="https://open.spotify.com/playlist/04x3XUkWEHugFwOYIroeGW?si=18a8eb2f9b044873">Discover · Launchpad</a></li>
-        </ul>
+
+        <div class="proud-grid">
+          <!-- Papers -->
+          <div class="proud-card">
+            <div class="proud-head">
+              <i class="fa-solid fa-file-lines"></i>
+              <span>Papers</span>
+            </div>
+            <ul class="proud-links">
+              <li><a href="https://ieeexplore.ieee.org/abstract/document/10157289" target="_blank" rel="noopener">FPGA-based decision-making for satellite orientation</a></li>
+              <li><a href="https://pubs-aip-org.tudelft.idm.oclc.org/aip/acp/article/3035/1/020020/3268223" target="_blank" rel="noopener">Robotic solution for internal imperfection detection</a></li>
+            </ul>
+          </div>
+
+          <!-- Blog posts -->
+          <div class="proud-card">
+            <div class="proud-head">
+              <i class="fa-solid fa-pen-nib"></i>
+              <span>Blog posts</span>
+            </div>
+            <ul class="proud-links">
+              <li><a href="https://medium.com/iet-vit/the-progression-of-space-tech-and-ambition-2a65c141c3fb" target="_blank" rel="noopener">The Progression of Space Tech and Ambition</a></li>
+              <li><a href="https://medium.com/iet-vit/swarm-robotics-80abc98837f1" target="_blank" rel="noopener">Swarm Robotics</a></li>
+            </ul>
+          </div>
+
+          <!-- Spotify -->
+          <div class="proud-card">
+            <div class="proud-head">
+              <i class="fa-brands fa-spotify"></i>
+              <span>Spotify</span>
+            </div>
+            <div class="badge-row">
+              <a class="badge" href="https://open.spotify.com/playlist/254AP5UELZvM17rs6G5SVc?si=204ca3616f684181" target="_blank" rel="noopener">Focus · Orbit</a>
+              <a class="badge" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967" target="_blank" rel="noopener">Gym · Boosters</a>
+              <a class="badge" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327" target="_blank" rel="noopener">Chill · Coast</a>
+              <a class="badge" href="https://open.spotify.com/playlist/04x3XUkWEHugFwOYIroeGW?si=18a8eb2f9b044873" target="_blank" rel="noopener">Discover · Launchpad</a>
+            </div>
+          </div>
+        </div>
       </article>
+
     </section>
 
     <!-- PANEL: Escape Velocity -->
