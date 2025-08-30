@@ -329,12 +329,23 @@
           <li class="muted"><em>Earlier:</em> IET-VIT — led a 12-member hardware team; ran embedded workshops.</li>
         </ul>
       </article>
-      <article class="card resume-preview">
-        <h3>My Resume</h3>
-        <embed src="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf#page=1&zoom=80" type="application/pdf">
-        <a href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank">View full 2-page resume →</a>
-        </article>
-    </section>
+       <article class="card" style="margin-top:16px;">
+          <h3>Resume</h3>
+          <a class="pdf-card" href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank" rel="noopener" title="Open full resume (PDF)">
+            <!-- First page preview (no toolbar; shows page 1) -->
+            <object data="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf#page=1&zoom=110&toolbar=0&navpanes=0&scrollbar=0"
+                    type="application/pdf"
+                    class="pdf-embed"
+                    aria-label="Resume first page preview">
+              <!-- Fallback if PDF embed isn’t supported -->
+              <div class="pdf-fallback">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>View Resume (PDF)</span>
+              </div>
+            </object>
+            <div class="pdf-overlay">Open full 2-page PDF →</div>
+          </a>
+        </article> 
 
     <!-- PANEL: Fuel -->
     <section id="fuel" class="panel" role="tabpanel" aria-labelledby="tab-fuel">
