@@ -7,8 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
   <style>
-    <style>
-    :root{
+  :root{
     --ink:#0a0a0d;--text:#fcfbfe;--deep-1:#1d1135;--deep-2:#0c164f;--acc-1:#ba1e68;--acc-2:#5643fd;--acc-3:#7649fe;
     --muted:#b9b8c6;--card:#121219;--card-2:#151522;--border:#232333;--shadow:0 10px 30px rgba(0,0,0,.35);
     --radius:14px;--radius-sm:10px;--pad:20px;--pad-lg:28px;--tab-h:54px;--maxw:1240px;
@@ -229,8 +228,8 @@
     @media (min-width:1200px){body{font-size:17px}}
     @media (max-width:860px){.section-title{font-size:1.25rem}.card h3{font-size:1.02rem}}
   </style>
-</head>
-<body>
+  </head>
+  <body>
   <!-- NAV / TABS -->
   <nav class="nav" role="tablist" aria-label="Primary">
     <div class="brand">
@@ -290,34 +289,43 @@
         <article class="card">
           <h3 class="section-title"><i class="fa-solid fa-circle-question"></i> Ask me about</h3>
           <ul class="subtle" style="margin:0; padding-left: 1.1rem;">
-            <li>Robust digital & neuromorphic hardware</li>
+            <li>Robust digital hardware (and some more in neuromorphic)</li>
             <li>Kickstarting space outreach initiatives</li>
             <li>Running a technical team as a student</li>
             <li>Playlists for focus & flow</li>
-            <li>Books on tech, space & the future</li>
+            <li>Books on anything under the sun</li>
           </ul>
         </article>
       </div>
     </section>
 
     <!-- PANEL: 1st Stage -->
-    <section id="first-stage" class="panel" role="tabpanel" aria-labelledby="tab-first-stage">
-      <h2 class="section-title">
-        <img class="title-icon" src="octagonal.png" alt="1st Stage icon"> 1st Stage — About & Education
-      </h2>
+    <section id="first-stage" class="panel">
+      <h2>1st Stage — About & Education</h2>
 
-      <div class="grid cols-2">
-        <article class="card">
-          <h3>About</h3>
-          <p>I’m an aspiring space hardware engineer with my sights set firmly on building the next generation of intelligent, resilient systems. My fascination lies at the intersection of digital design, system architecture, and the dream of pushing humanity further into the cosmos.</p>
-          <p>Currently pursuing my MSc in Microelectronics at TU Delft, I focus on crafting robust, high-performance digital systems and SoC architectures. Whether it’s designing radiation-tolerant processors or fine-tuning RTL for timing closure, my goal is always the same: to make hardware that’s not just powerful, but dependable in the harshest environments — like deep space.</p>
-          <p>My toolkit spans Verilog, SystemVerilog, and Python, backed by hands-on experience with industry tools like Cadence Genus/Innovus, Questa, and ModelSim. Beyond the lab, I draw on my leadership in student space organisations and my creative side — music, art, and sport — to stay adaptable, collaborative, and inspired.</p>
+      <!-- About text as section intro -->
+      <p>
+        As an aspiring space hardware engineer, my sights are set on building the next generation of intelligent, resilient systems. My fascination lies at the intersection of digital design, system architecture, and the dream of pushing humanity further into the cosmos.
+      </p>
+      <p>
+        Currently, with a Masters degree in Microelectronics at TU Delft, I focus on crafting robust, high-performance digital systems and SoC architectures. Whether it’s designing radiation-tolerant processors or fine-tuning RTL for timing closure, my goal is always the same: to make hardware that’s not only powerful, but dependable in the harshest environments.
+      </p>
+      <p>
+        My toolkit spans Verilog, SystemVerilog, and Python, backed by hands-on experience with industry tools like Cadence Genus/Innovus, Questa, and ModelSim. Beyond the lab, I draw on my leadership in student space organisations and my creative side with music, art, and sport, to stay adaptable, collaborative, and inspired.
+      </p>
 
+      <!-- Resume card -->
+        <article class="card resume-preview">
+        <h3>My Resume</h3>
+        <embed src="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf#page=1&zoom=80" type="application/pdf">
+        <a href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank">View full 2-page resume →</a>
         </article>
 
-        <article class="card">
-          <h3>Education</h3>
-          <div class="edu-accordion" id="edu-accordion">
+
+        <!-- Education accordion -->
+        <article class="card" style="margin-top:16px;">
+        <h3>Education</h3>
+        <div class="edu-accordion" id="edu-accordion">
             <button class="acc-trigger open">
               <span><strong>2023–2025 · TU Delft — MSc Electrical Engineering (Microelectronics)</strong></span>
               <span class="acc-icon" aria-hidden="true"></span>
@@ -349,26 +357,20 @@
             <div class="acc-panel">
               <p class="subtle">Formative years across academics, music, and sport; learned to balance creativity and engineering.</p>
             </div>
-          </div>
         </article>
-      </div>
 
+
+        <!-- Experience highlights -->
       <article class="card" style="margin-top:16px;">
         <h3>Experience (Highlights)</h3>
-        <p class="subtle"><em>What’s cool about this:</em> Mentoring students to build real biomedical projects; shipping hardware that bridges industrial protocols; leading national space outreach.</p>
-        <ul class="subtle" style="padding-left:1.1rem;">
+        <ul class="subtle" style="padding-left:1.1rem;"></ul>
           <li><strong>Teaching Assistant (TU Delft, 2024–2025):</strong> Guided heart-sound localization projects; mentored wearable sensor proposals and grading.</li>
           <li><strong>Hardware Intern (RTips, 2022–2023):</strong> Designed MODBUS↔DALI protocol bridge; PCB design; bring-up.</li>
           <li><strong>Executive Director (SEDS India, 2021–2022):</strong> Led national student space initiatives & partnerships.</li>
-          <li class="muted"><em>Earlier:</em> IET-VIT — led a 12-member hardware team; ran embedded workshops.</li>
+          <li class="muted"><em>Earlier:</em> IET-VIT: led a 12-member hardware team; ran embedded workshops.</li>
+          <li class="muted"><em>For more info:</em> head over to my resume below</li>
         </ul>
-      </article>
-      <article class="card resume-preview">
-      <h3>My Resume</h3>
-      <embed src="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf#page=1&zoom=80" type="application/pdf">
-      <a href="SamanyuOkade_digitalDesign_MSmicroelectronics.pdf" target="_blank">View full 2-page resume →</a>
-      </article>
-
+    </article>
     </section>
 
     <!-- PANEL: Fuel -->
@@ -403,7 +405,7 @@
 
         <article class="card">
           <h3><a class="inline" href="https://github.com/Samanyu-007/The-RTA" target="_blank">The RTA — Robotic Temperate Analyzer</a></h3>
-          <p class="subtle"><em>What’s cool:</em> robot to maintain personal space and monitor IAQ with on-board sensing.</p>
+          <p class="subtle"><em>What’s cool:</em> robot to maintain personal space and monitor indoor air quality with on-board sensing.</p>
           <ul class="subtle" style="padding-left:1.1rem;">
             <li>Presence detection + actuation to preserve safe distances.</li>
             <li>Temp/humidity monitoring for indoor comfort.</li>
@@ -412,7 +414,7 @@
 
         <article class="card">
           <h3><a class="inline" href="https://github.com/Samanyu-007/The-Goniometric-Glove" target="_blank">The Goniometric Glove</a></h3>
-          <p class="subtle"><em>What’s cool:</em> wearable flex-sensing + ML for gesture/robotic control; assistive applications.</p>
+          <p class="subtle"><em>What’s cool:</em> wearable flex-sensing; assistive applications.</p>
           <ul class="subtle" style="padding-left:1.1rem;">
             <li>Measures finger positions; maps to gestures.</li>
             <li>Explores sign-language interpretation & robotic interfaces.</li>
@@ -467,6 +469,8 @@
               <a class="badge" href="https://open.spotify.com/playlist/2JgcglU4vKz9EUmqhpj66l?si=b61d152e4d764967" target="_blank" rel="noopener">Gym · Boosters</a>
               <a class="badge" href="https://open.spotify.com/playlist/70wtbC67SYWpLcFMdP5dEF?si=b0bb21940a514327" target="_blank" rel="noopener">Chill · Coast</a>
               <a class="badge" href="https://open.spotify.com/playlist/04x3XUkWEHugFwOYIroeGW?si=18a8eb2f9b044873" target="_blank" rel="noopener">Discover · Launchpad</a>
+<a class="badge" href="https://www.spotify.com/nl/account/overview/" target="_blank" rel="noopener">Account</a>
+
             </div>
           </div>
         </div>
