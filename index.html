@@ -79,6 +79,43 @@
     .nav{position:sticky;top:0;z-index:100;height:var(--tab-h);display:flex;align-items:center;gap:6px;padding:0 10px;background:linear-gradient(180deg,rgba(22,22,30,.75),rgba(22,22,30,.25) 60%,rgba(22,22,30,0));backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
     .tabs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none}
     .tabs::-webkit-scrollbar{display:none}
+    @media (max-width: 700px) {
+      :root { --tab-h: 56px; }                  /* slightly shorter nav on phones */
+
+      .nav { height: var(--tab-h); padding: 0 8px; }
+      .brand .title { display: none; }          /* stop the brand title from shifting layout */
+      
+      .tabs {
+        flex-wrap: nowrap;                      /* no wrapping -> no overlap */
+        gap: 10px;
+        scroll-snap-type: x proximity;          /* nice horizontal scroll behavior */
+      }
+      .tab {
+        padding: 8px;                           /* tighter “pill” */
+        min-width: auto;
+        border-radius: 12px;
+        scroll-snap-align: center;
+      }
+      .tab-text { display: none; }              /* hide labels */
+      .tab i, .tab .tab-icon {
+        height: 22px; width: 22px;
+        margin: 0;
+      }
+
+      /* active tab: subtle glow/pill (no boxy rectangle) */
+      .tab.active{
+        background: linear-gradient(135deg, rgba(86,67,253,.18), rgba(118,73,254,.16));
+        border: 1px solid #2a2a46;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 6px 16px rgba(0,0,0,.35);
+      }
+
+      /* make the Contact button icon-only too */
+      .cta { padding: 8px 10px; border-radius: 12px; }
+      .cta .tab-text { display: none; }
+    }
+
+    /* Ensure in-page anchors don't hide under sticky bar (you already have this; keep it) */
+    .panel { scroll-margin-top: calc(var(--tab-h) + 12px); }
     .tab{--active-bg:linear-gradient(135deg,rgba(86,67,253,.18),rgba(118,73,254,.18));--active-brd:linear-gradient(135deg,var(--acc-2),var(--acc-3));--hover-bg:rgba(255,255,255,.05);display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:999px;color:var(--text);text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s ease}
     .tab:hover{background:var(--hover-bg)}
     /* .tab.active{background:var(--active-bg);border-image:var(--active-brd) 1;border-width:1px;border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)} */
@@ -243,24 +280,24 @@
 
     <div class="tabs">
       <a class="tab" role="tab" href="#ground-station" data-tab="ground-station">
-        <i class="fa-solid fa-satellite-dish"></i> Ground Station
+        <i class="fa-solid fa-satellite-dish"></i><span class="tab-text">Ground Station</span>
       </a>
       <a class="tab" role="tab" href="#first-stage" data-tab="first-stage">
-        <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage
+        <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"><span class="tab-text">1st Stage</span>
       </a>
       <a class="tab" role="tab" href="#fuel" data-tab="fuel">
-       <img class="tab-icon" src="oil-barrel.png" alt="" aria-hidden="true"> Fuel
+       <img class="tab-icon" src="oil-barrel.png" alt="" aria-hidden="true"><span class="tab-text">Fuel</span>
       </a>
       <a class="tab" role="tab" href="#ignition" data-tab="ignition">
-        <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"> Ignition
+        <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"><span class="tab-text">Ignition</span>
       </a>
       <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity">
-        <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"> Escape Velocity
+        <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"><span class="tab-text">Escape Velocity</span>
       </a>
     </div>
 
     <div class="spacer"></div>
-    <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i><span class="tab-text"> Contact</span></a>
   </nav>
 
   <main class="wrap">
