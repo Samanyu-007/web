@@ -79,48 +79,80 @@
     .nav{position:sticky;top:0;z-index:100;height:var(--tab-h);display:flex;align-items:center;gap:6px;padding:0 10px;background:linear-gradient(180deg,rgba(22,22,30,.75),rgba(22,22,30,.25) 60%,rgba(22,22,30,0));backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
     .tabs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none}
     .tabs::-webkit-scrollbar{display:none}
-    @media (max-width: 700px) {
-      :root { --tab-h: 56px; }                  /* slightly shorter nav on phones */
-
-      .nav { height: var(--tab-h); padding: 0 8px; }
-      .brand .title { display: none; }          /* stop the brand title from shifting layout */
-      
-      .tabs {
-        flex-wrap: nowrap;                      /* no wrapping -> no overlap */
-        gap: 10px;
-        scroll-snap-type: x proximity;          /* nice horizontal scroll behavior */
-      }
-      .tab {
-        padding: 8px;                           /* tighter “pill” */
-        min-width: auto;
-        border-radius: 12px;
-        scroll-snap-align: center;
-      }
-      .tab-text { display: none; }              /* hide labels */
-      .tab i, .tab .tab-icon {
-        height: 22px; width: 22px;
-        margin: 0;
-      }
-
-      /* active tab: subtle glow/pill (no boxy rectangle) */
-      .tab.active{
-        background: linear-gradient(135deg, rgba(86,67,253,.18), rgba(118,73,254,.16));
-        border: 1px solid #2a2a46;
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 6px 16px rgba(0,0,0,.35);
-      }
-
-      /* make the Contact button icon-only too */
-      .cta { padding: 8px 10px; border-radius: 12px; }
-      .cta .tab-text { display: none; }
-    }
-
-    /* Ensure in-page anchors don't hide under sticky bar (you already have this; keep it) */
-    .panel { scroll-margin-top: calc(var(--tab-h) + 12px); }
     .tab{--active-bg:linear-gradient(135deg,rgba(86,67,253,.18),rgba(118,73,254,.18));--active-brd:linear-gradient(135deg,var(--acc-2),var(--acc-3));--hover-bg:rgba(255,255,255,.05);display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:999px;color:var(--text);text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s ease}
     .tab:hover{background:var(--hover-bg)}
     /* .tab.active{background:var(--active-bg);border-image:var(--active-brd) 1;border-width:1px;border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)} */
     /* before: border-image rectangle look */
     /* after: subtle pill highlight + soft border */
+
+    /* --- Mobile nav defaults --- */
+    .menu-btn{
+      display:none;                /* shown only on small screens */
+      margin-left:6px;
+      background:transparent;
+      border:0;
+      width:40px; height:36px;
+      border-radius:10px;
+      cursor:pointer;
+      position:relative;
+    }
+    .menu-btn:focus-visible{ outline:2px solid var(--acc-2); outline-offset:2px; }
+    .menu-bars, .menu-bars::before, .menu-bars::after{
+      content:"";
+      position:absolute;
+      left:10px; right:10px;
+      height:2px; background:#eae9f7;
+      border-radius:2px;
+      transition:.2s ease;
+    }
+    .menu-bars{ top:17px; }
+    .menu-bars::before{ top:-7px; }
+    .menu-bars::after{ top:7px; }
+    .menu-btn.open .menu-bars{ background:transparent; }
+    .menu-btn.open .menu-bars::before{ transform:translateY(7px) rotate(45deg); }
+    .menu-btn.open .menu-bars::after{ transform:translateY(-7px) rotate(-45deg); }
+
+    /* Drawer panel */
+    .drawer{
+      position: fixed;
+      top: var(--tab-h);
+      left: 0; right: 0;
+      background: linear-gradient(180deg, var(--card), var(--card-2));
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transform: translateY(-120%);
+      transition: transform .22s ease;
+      z-index: 90; /* below sticky nav (100) */
+      padding: 10px 12px 14px;
+    }
+    .drawer.open{ transform: translateY(0); }
+    .drawer .tab{
+      display:flex; align-items:center; gap:10px;
+      height:auto; padding:12px 10px; margin:2px 0;
+      border-radius:10px; border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+    }
+    .drawer .tab.active{ background: rgba(86,67,253,.14); border-color:#2a2a46; }
+    .drawer .label{ font-weight:700; }
+    .drawer-sep{ height:1px; background:var(--border); margin:10px 0; }
+    .drawer-cta{ width:100%; justify-content:center; }
+
+    /* Responsive switch: on phones show burger + drawer, hide desktop tabs */
+    @media (max-width: 720px){
+      .tabs{ display:none; }       /* hide the desktop pill bar */
+      .menu-btn{ display:inline-flex; align-items:center; justify-content:center; }
+    }
+
+/* (Nice extra) icon-only pills on very narrow screens IF i keep desktop tabs visible:
+   Uncomment this block if you prefer the pills instead of the drawer below ~420px
+@media (max-width: 420px){
+  .tabs{ overflow-x:auto; display:flex; }
+  .tab .label { display:none; }
+}
+*/
+
+
+
     .tab.active{
       background: linear-gradient(135deg, rgba(86,67,253,.14), rgba(118,73,254,.12));
       border: 1px solid #2a2a46;           /* subtle, not boxy */
@@ -277,28 +309,55 @@
         <img src="octagonal.png" alt="1st Stage Icon" class="icon-img"> Ground Station
       </div>
     </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span class="menu-bars"></span>
+    </button>
 
     <div class="tabs">
       <a class="tab" role="tab" href="#ground-station" data-tab="ground-station">
-        <i class="fa-solid fa-satellite-dish"></i><span class="tab-text">Ground Station</span>
+        <i class="fa-solid fa-satellite-dish"></i> Ground Station
       </a>
       <a class="tab" role="tab" href="#first-stage" data-tab="first-stage">
-        <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"><span class="tab-text">1st Stage</span>
+        <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage
       </a>
       <a class="tab" role="tab" href="#fuel" data-tab="fuel">
-       <img class="tab-icon" src="oil-barrel.png" alt="" aria-hidden="true"><span class="tab-text">Fuel</span>
+       <img class="tab-icon" src="oil-barrel.png" alt="" aria-hidden="true"> Fuel
       </a>
       <a class="tab" role="tab" href="#ignition" data-tab="ignition">
-        <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"><span class="tab-text">Ignition</span>
+        <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"> Ignition
       </a>
       <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity">
-        <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"><span class="tab-text">Escape Velocity</span>
+        <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"> Escape Velocity
       </a>
     </div>
 
     <div class="spacer"></div>
-    <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i><span class="tab-text"> Contact</span></a>
+    <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i> Contact</a>
   </nav>
+
+  <aside id="mobileMenu" class="drawer" aria-hidden="true">
+    <a class="tab" href="#ground-station" data-tab="ground-station">
+      <i class="fa-solid fa-satellite-dish"></i><span class="label">Ground Station</span>
+    </a>
+    <a class="tab" href="#first-stage" data-tab="first-stage">
+      <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"><span class="label">1st Stage</span>
+    </a>
+    <a class="tab" href="#fuel" data-tab="fuel">
+      <img class="tab-icon" src="oil-barrel.png" alt="" aria-hidden="true"><span class="label">Fuel</span>
+    </a>
+    <a class="tab" href="#ignition" data-tab="ignition">
+      <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"><span class="label">Ignition</span>
+    </a>
+    <a class="tab" href="#escape-velocity" data-tab="escape-velocity">
+      <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"><span class="label">Escape Velocity</span>
+    </a>
+
+    <div class="drawer-sep"></div>
+
+    <a class="cta drawer-cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu">
+      <i class="fa-solid fa-envelope"></i> Contact
+    </a>
+  </aside>
 
   <main class="wrap">
     <!-- PANEL: Ground Station -->
@@ -573,6 +632,45 @@
     window.addEventListener('hashchange', initFromHash);
     initFromHash();
     tabs.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));
+
+    // Mobile drawer logic
+    const menuBtn   = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function closeDrawer(){
+      mobileMenu.classList.remove('open');
+      menuBtn.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded','false');
+      mobileMenu.setAttribute('aria-hidden','true');
+    }
+    function openDrawer(){
+      mobileMenu.classList.add('open');
+      menuBtn.classList.add('open');
+      menuBtn.setAttribute('aria-expanded','true');
+      mobileMenu.setAttribute('aria-hidden','false');
+    }
+
+    if (menuBtn && mobileMenu){
+      menuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        (isOpen ? closeDrawer : openDrawer)();
+      });
+
+      // Close when clicking any link in drawer
+      mobileMenu.querySelectorAll('a.tab, a.cta').forEach(a => {
+        a.addEventListener('click', () => closeDrawer());
+      });
+
+      // Close on ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDrawer();
+      });
+
+      // Close if hash changes (e.g., user uses desktop tabs)
+      window.addEventListener('hashchange', closeDrawer);
+    }
+  </script>
+
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
