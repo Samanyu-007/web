@@ -151,6 +151,29 @@
 }
 */
 
+    /* About intro typography */
+    .about-intro{
+      max-width: 72ch;               /* comfortable line length */
+      margin: 10px 0 18px;
+    }
+    .about-intro p{
+      text-align: justify;            /* justify both edges */
+      text-justify: inter-word;       /* nicer word spacing */
+      hyphens: auto;                  /* break long words cleanly */
+      margin: 0 0 0.9rem;             /* breathing room between paras */
+      color: var(--muted);
+    }
+
+    /* A slightly larger first paragraph (optional) */
+    .about-intro p.lede{
+      font-size: 1.02rem;
+      color: var(--text);
+    }
+
+    /* On small screens, avoid full-justify (prevents rivers) */
+    @media (max-width: 700px){
+      .about-intro p{ text-align: left; }
+    }
 
 
     .tab.active{
@@ -365,7 +388,7 @@
       <div class="hero">
         <h1>Samanyu Okade</h1>
         <p>Greetings Traveler!</p>
-        <p class="subtle" style="margin-top:10px;">Welcome to Ground Station. Here you’ll find my journey, projects, and interests, pieced together like the stages of a rocket on its way to the stars.</p>
+        <p class="subtle" style="margin-top:10px;">Welcome to Ground Station. Here you’ll find my journey, projects, and interests, pieced together like the stages of a rocket on its way to the stars. If you are interested in electronics, space, or logic, or just exploring new ideas, feel free to reach out!</p>
         <div class="chips" aria-label="Quick Links">
           <a class="chip inline" href="https://www.linkedin.com/in/samanyu-okade/" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
           <a class="chip inline" href="mailto:samanyuokade@gmail.com"><i class="fa-solid fa-paper-plane"></i> Email</a>
@@ -413,6 +436,9 @@
       <p>
         My toolkit spans Verilog, SystemVerilog, and Python, backed by hands-on experience with industry tools like Cadence Genus/Innovus, Questa, and ModelSim. Beyond the lab, I draw on my leadership in student space organisations and my creative side with music, art, and sport, to stay adaptable, collaborative, and inspired.
       </p>
+      <p>
+        Hop over to my resume for a deeper dive into my storyline and side quests :)
+      </p>
 
 
         <!-- Education accordion -->
@@ -424,7 +450,7 @@
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel open">
-              <p class="subtle">Focus on digital design, SoC architecture, and system‑level integration. Building resilient, intelligent hardware with an eye on space applications.</p>
+              <p class="subtle">Focus on digital design, SoC architecture, and system‑level integration. Building resilient, intelligent hardware with an eye on space applications. Brain updated to integrate nature into engineering more intricately, and critically appreciate the beauty of smart puzzle-solving.</p>
             </div>
 
             <button class="acc-trigger">
@@ -432,7 +458,7 @@
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel">
-              <p class="subtle">Foundations in digital logic, embedded systems, communications, and hands‑on hardware projects that set the stage for my current research interests.</p>
+              <p class="subtle">Foundations in digital logic, embedded systems, communications, and hands‑on hardware projects that set the stage for my current research interests. I started exploring logic, bringing back my love for art, and built responsibility and credibility in my work.</p>
             </div>
 
             <button class="acc-trigger">
@@ -440,7 +466,7 @@
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel">
-              <p class="subtle">Senior secondary with a STEM focus; early tinkering, science fairs, and first steps toward electronics.</p>
+              <p class="subtle">Senior secondary with a STEM focus; Early tinkering, science fairs, and first steps toward electronics. Learned to be independant here!</p>
             </div>
 
             <button class="acc-trigger">
@@ -448,28 +474,28 @@
               <span class="acc-icon" aria-hidden="true"></span>
             </button>
             <div class="acc-panel">
-              <p class="subtle">Formative years across academics, music, and sport; learned to balance creativity and engineering.</p>
+              <p class="subtle">Formative years across academics, music, and sport; Balanced creativity, art, and science. When cars and dinosaurs weren't chasing around my brain for space, I made some of my earliest makeshift telescopes, little electrical circuits, and fun toys and games here.</p>
             </div>
         </article>
 
 
         <!-- Experience highlights -->
-      <article class="card" style="margin-top:16px;">
-        <h3>Experience (Highlights)</h3>
-        <ul class="subtle" style="padding-left:1.1rem;"></ul>
-          <li><strong>Teaching Assistant (TU Delft, 2024–2025):</strong> Guided heart-sound localization projects; mentored wearable sensor proposals and grading.</li>
-          <li><strong>Hardware Intern (RTips, 2022–2023):</strong> Designed MODBUS↔DALI protocol bridge; PCB design; bring-up.</li>
-          <li><strong>Executive Director (SEDS India, 2021–2022):</strong> Led national student space initiatives & partnerships.</li>
-          <li class="muted"><em>Earlier:</em> IET-VIT: led a 12-member hardware team; ran embedded workshops.</li>
-          <li class="muted"><em>For more info:</em> head over to my resume below</li>
-        </ul>
-    </article>
+      <!-- <article class="card" style="margin-top:16px;"> -->
+        <!-- <h3>Experience (Highlights)</h3> -->
+        <!-- <ul class="subtle" style="padding-left:1.1rem;"></ul> -->
+          <!-- <li><strong>Teaching Assistant (TU Delft, 2024–2025):</strong> Guided heart-sound localization projects; mentored wearable sensor proposals and grading.</li> -->
+          <!-- <li><strong>Hardware Intern (RTips, 2022–2023):</strong> Designed MODBUS↔DALI protocol bridge; PCB design; bring-up.</li> -->
+          <!-- <li><strong>Executive Director (SEDS India, 2021–2022):</strong> Led national student space initiatives & partnerships.</li> -->
+          <!-- <li class="muted"><em>Earlier:</em> IET-VIT: led a 12-member hardware team; ran embedded workshops.</li> -->
+          <!-- <li class="muted"><em>For more info:</em> head over to my resume below</li> -->
+        <!-- </ul> -->
+    <!-- </article> -->
 
     <!-- Resume card -->
         <article class="card resume-preview">
         <h3>My Resume</h3>
-        <embed src="SamanyuOkade_digitalDesign_MSElectrical.pdf#page=1&zoom=80" type="application/pdf">
-        <a href="SamanyuOkade_digitalDesign_MSElectrical.pdf" target="_blank">View full 2-page resume →</a>
+        <embed src="SamanyuOkade_master.pdf#page=1&zoom=80" type="application/pdf">
+        <a href="SamanyuOkade_master.pdf" target="_blank">View full resume →</a>
         </article>
 
     </section>
@@ -478,7 +504,14 @@
     <section id="fuel" class="panel">
     <h2>Fuel — What drives me</h2>
     <div class="card">
-    <p>I’m driven by the idea that elegant hardware can unlock new human experiences from medical sensing to resilient, low-power intelligence at the edge. I care about clarity in design, strong fundamentals, and turning ambiguous problems into testable prototypes.</p>
+    <p>I’ve always loved puzzles, especially the kind you can hold in your head and then bring to life in silicon. That’s why I’m drawn to digital design: it turns curiosity into circuits, and ideas into something you can measure, test, and trust.
+I care about building things that last. Modular, resilient, and reliable systems make me happy because they grow without falling apart. If a design can snap together like LEGO, scale cleanly, and survive the unexpected, I’m in my element.
+I’m endlessly inspired by space. It’s the most unforgiving test bench we have—no do-overs, no quick fixes. Designing with that mindset keeps me honest: every decision should make the system sturdier, smarter, and ready for anything.
+Robotics adds the spark. I love making hardware feel “intelligent”—tight feedback loops, clean interfaces, and logic that adapts. Whether it’s a tiny controller or a full SoC, I chase designs that sense, decide, and act with confidence.
+My process is simple: explore widely, design modularly, verify obsessively, iterate lightly. I’m allergic to brittle solutions and bloated complexity. I’d rather ship a clear, well-factored block that others can pick up and reuse across domains.
+What keeps me moving is the promise of impact: solving real problems with clean architectures, making technology more dependable, and pushing systems into places they’ve never been—on Earth, in orbit, and wherever curiosity leads next.
+If you’re into creative engineering, puzzle-first thinking, and building smart systems that refuse to break, we’re already speaking the same language. Let’s make reliable, intelligent hardware—beautifully.</p>
+
     <div class="skill-tags">
     <div class="skill-tag">Microelectronics</div>
     <div class="skill-tag">Digital Logic</div>
@@ -496,7 +529,7 @@
 
       <div class="grid cols-2">
         <article class="card">
-          <h3>TIENOS: A Tool for Intensive Exploration of Neuromorphic-workloads for Outer Space</h3>
+          <h3><a href="https://repository.tudelft.nl/record/uuid:ab4cf485-85d7-4649-a1da-ba05c7396186" target="_blank">TIENOS: A Tool for Intensive Exploration of Neuromorphic-workloads for Outer Space</a></h3>
           <p class="subtle"><em>What’s cool:</em> compared SNNs vs ANNs for robustness, linking neuromorphic research to real-world reliability.</p>
           <ul class="subtle" style="padding-left:1.1rem;">
             <li>Designed experiments on MNIST; analyzed error tolerance.</li>
