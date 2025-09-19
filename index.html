@@ -277,6 +277,13 @@
       color: #eae9f7;
     }
     .menu-btn.open .menu-caret{ transform: rotate(180deg); } /* becomes chevron-up */
+    /* put the mobile menu caret on the right */
+    @media (max-width: 720px){
+      .menu-btn{ 
+        margin-left: auto;   /* pushes it to the end of the flex row */
+      }
+    }
+
 
 
     /* Education accordion */
