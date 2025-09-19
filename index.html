@@ -142,6 +142,10 @@
       .tabs{ display:none; }       /* hide the desktop pill bar */
       .menu-btn{ display:inline-flex; align-items:center; justify-content:center; }
     }
+    @media (max-width: 720px){
+      .nav .cta { display: none; }
+    }
+
 
 /* (Nice extra) icon-only pills on very narrow screens IF i keep desktop tabs visible:
    Uncomment this block if you prefer the pills instead of the drawer below ~420px
@@ -265,6 +269,15 @@
     .showmore:hover{ background:rgba(255,255,255,.06); }
     .showmore .chev{ transition: transform .18s ease; }
 
+    /* caret icon for mobile menu button */
+    .menu-caret{
+      font-size: 18px;
+      line-height: 1;
+      transition: transform .2s ease;
+      color: #eae9f7;
+    }
+    .menu-btn.open .menu-caret{ transform: rotate(180deg); } /* becomes chevron-up */
+
 
     /* Education accordion */
     .edu-accordion{width:100%}
@@ -355,8 +368,9 @@
       </div>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
-      <span class="menu-bars"></span>
+      <i class="fa-solid fa-chevron-down menu-caret" aria-hidden="true"></i>
     </button>
+
 
     <div class="tabs">
       <a class="tab" role="tab" href="#ground-station" data-tab="ground-station">
