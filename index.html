@@ -243,6 +243,28 @@
     }
     .pdf-fallback i{ color:var(--acc-1); }
 
+    /* Projects grid + expansion */
+    .projects-grid{ display:grid; gap:20px; }
+    @media (min-width:860px){ .projects-grid.cols-2{ grid-template-columns:1fr 1fr; } }
+
+    /* Default: show only featured; expand shows all */
+    .projects-grid:not(.expanded) .project-card:not(.featured){ display:none; }
+
+    /* On phones, show only the first two featured by default */
+    @media (max-width:720px){
+      .projects-grid:not(.expanded) .project-card.featured:nth-of-type(n+3){ display:none; }
+    }
+
+    /* Show more/fewer button */
+    .showmore{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:12px; padding:10px 14px; border-radius:999px;
+      border:1px solid var(--border); background:#0f0f18; color:var(--text);
+      font-weight:700; cursor:pointer; box-shadow:var(--shadow);
+    }
+    .showmore:hover{ background:rgba(255,255,255,.06); }
+    .showmore .chev{ transition: transform .18s ease; }
+
 
     /* Education accordion */
     .edu-accordion{width:100%}
@@ -505,19 +527,28 @@
     <section id="fuel" class="panel">
     <h2>Fuel — What drives me</h2>
     <div class="card">
-    <p>I’ve always loved puzzles, especially the kind you can hold in your head and then bring to life in silicon. That’s why I’m drawn to digital design: it turns curiosity into circuits, and ideas into something you can measure, test, and trust.
-I care about building things that last. Modular, resilient, and reliable systems make me happy because they grow without falling apart. If a design can snap together like LEGO, scale cleanly, and survive the unexpected, I’m in my element.
-I’m endlessly inspired by space. It’s the most unforgiving test bench we have—no do-overs, no quick fixes. Designing with that mindset keeps me honest: every decision should make the system sturdier, smarter, and ready for anything.
-Robotics adds the spark. I love making hardware feel “intelligent”—tight feedback loops, clean interfaces, and logic that adapts. Whether it’s a tiny controller or a full SoC, I chase designs that sense, decide, and act with confidence.
-My process is simple: explore widely, design modularly, verify obsessively, iterate lightly. I’m allergic to brittle solutions and bloated complexity. I’d rather ship a clear, well-factored block that others can pick up and reuse across domains.
-What keeps me moving is the promise of impact: solving real problems with clean architectures, making technology more dependable, and pushing systems into places they’ve never been—on Earth, in orbit, and wherever curiosity leads next.
-If you’re into creative engineering, puzzle-first thinking, and building smart systems that refuse to break, we’re already speaking the same language. Let’s make reliable, intelligent hardware—beautifully.</p>
+<p>
+Creating something better, smarter, and ready for any challenge, no matter where it’s used, or by whom drives me. Life like my favourite strategy game—minimising losses, maximising rewards, and never backing down from a new quest. Every new opportunity to me is a chance to find a way to make everyday experiences just a little more interesting.
+</p>
+<p>
+I'm that person who can’t resist learning about a new technology or a new theory or diving headfirst into a fresh idea. Once I can draw my way into building a solution, I’m in it for the high score. I get hooked (in the best way) to finding elegant, modular solutions that can flex, scale, and adapt, because I believe the best designs are the ones that can be reused, reimagined, and shared. It is these obsessions that have driven me and continue to bring me back to FPGAs and robotics.
+</p>
+<p>
+My love for creativity isn’t limited to circuits and engineering marvels. It comes from growing up with a strong background in art and music. All creativity is hidden in the intricacies. How could this be done differently? What if this could be used somewhere completely new?
+People and their stories help me understand even more; how everyone sees the world, how they approach challenges. Each new perspective is a chance to rethink, to make my solutions even more adaptable, and to connect technology with real-world needs. 
+</p>
+<p>
+The final boss? Inducing intelligence into hardware making it fly really really high (I mean outer space, in case the website's theme did not give it away already). I want to shape systems that not only solve today’s problems, but are resilient enough for whatever tomorrow brings, on Earth and beyond. The goal is simple: make a ✨stellar✨ contribution to the future of humanity, towards infinity and beyond.
+</p>
+<p>
+If you’re reading this, I hope you’re as excited by possibility as I am. Because for me, the next big update is always just around the corner.
+</p>
 
-    <div class="skill-tags">
+    <!-- <div class="skill-tags">
     <div class="skill-tag">Microelectronics</div>
     <div class="skill-tag">Digital Logic</div>
     <div class="skill-tag">Computer Architecture</div>
-    <div class="skill-tag">Neuromorphic Computing</div>
+    <div class="skill-tag">Neuromorphic Computing</div> -->
     </div>
     </div>
     </section>
@@ -528,42 +559,78 @@ If you’re into creative engineering, puzzle-first thinking, and building smart
         <img class="title-icon" src="start-up.png" alt="Ignition icon"> Ignition — Projects & Proud Moments
       </h2>
 
-      <div class="grid cols-2">
-        <article class="card">
-          <h3><a href="https://repository.tudelft.nl/record/uuid:ab4cf485-85d7-4649-a1da-ba05c7396186" target="_blank">TIENOS: A Tool for Intensive Exploration of Neuromorphic-workloads for Outer Space</a></h3>
-          <p class="subtle"><em>What’s cool:</em> compared SNNs vs ANNs for robustness, linking neuromorphic research to real-world reliability.</p>
+      <div id="projectsGrid" class="grid cols-2 projects-grid">
+        <!-- Featured first (these 4 show by default on desktop; first 2 on mobile) -->
+        <article class="card project-card featured">
+          <h3>
+            <a href="https://repository.tudelft.nl/record/uuid:ab4cf485-85d7-4649-a1da-ba05c7396186" target="_blank" rel="noopener">
+              TIENOS — Intensive Exploration of Neuromorphic Workloads for Outer Space
+            </a>
+          </h3>
+          <p class="subtle"><em>What’s cool:</em> flips the usual TMR mindset on its head, systematically finding layer-level vulnerabilities and tinyODIN hardening targets that keep accuracy under radiation-induced bit flips, without the 3× area/power tax of full TMR.</p>
           <ul class="subtle" style="padding-left:1.1rem;">
-            <li>Designed experiments on MNIST; analyzed error tolerance.</li>
-            <li>Takeaway: promising resilience patterns for hardware AI.</li>
+            <li>Exhaustive sweeps across training-layer protections and hardware targets.</li>
+            <li>Profiles fault-injection results vs. accuracy / area / power.</li>
+            <li>Surfaces >15% resilience with minimal overhead.</li>
           </ul>
         </article>
 
-        <article class="card">
-          <h3><a class="inline" href="https://github.com/Samanyu-007/The-RTA" target="_blank">The RTA — Robotic Temperate Analyzer</a></h3>
-          <p class="subtle"><em>What’s cool:</em> robot to maintain personal space and monitor indoor air quality with on-board sensing.</p>
+        <article class="card project-card featured">
+          <h3><a class="inline" href="https://github.com/Samanyu-007/The-RTA" target="_blank" rel="noopener">The RTA — Robotic Temperature Analyzer</a></h3>
+          <p class="subtle"><em>What’s cool:</em> a small queue rover that preserves personal space and keeps tabs on indoor air quality.</p>
           <ul class="subtle" style="padding-left:1.1rem;">
-            <li>Presence detection + actuation to preserve safe distances.</li>
-            <li>Temp/humidity monitoring for indoor comfort.</li>
+            <li>Presence detection + actuation to maintain safe spacing in lines.</li>
+            <li>Temp/humidity monitoring for comfort and hygiene.</li>
           </ul>
         </article>
 
-        <article class="card">
-          <h3><a class="inline" href="https://github.com/Samanyu-007/The-Goniometric-Glove" target="_blank">The Goniometric Glove</a></h3>
-          <p class="subtle"><em>What’s cool:</em> wearable flex-sensing; assistive applications.</p>
+        <article class="card project-card featured">
+          <h3><a class="inline" href="https://github.com/Samanyu-007/The-Goniometric-Glove" target="_blank" rel="noopener">The Goniometric Glove</a></h3>
+          <p class="subtle"><em>What’s cool:</em> low-cost flex-sensor glove that maps finger bends to control prosthetics/robots. An easy path toward sign-language interfaces.</p>
           <ul class="subtle" style="padding-left:1.1rem;">
-            <li>Measures finger positions; maps to gestures.</li>
-            <li>Explores sign-language interpretation & robotic interfaces.</li>
+            <li>Captures finger goniometry with flex sensors.</li>
+            <li>Gesture mapping; ML-ready for richer control.</li>
           </ul>
         </article>
 
+        <article class="card project-card featured">
+          <h3>FPGA-based Decision-Making for Satellite Orientation & Propulsion</h3>
+          <p class="subtle"><em>What’s cool:</em> puts real-time pointing/attitude logic on an FPGA for deterministic control and efficient solar-panel alignment.</p>
+          <ul class="subtle" style="padding-left:1.1rem;">
+            <li>Sensor-in → decision pipeline → actuator commands on Cyclone IV.</li>
+            <li>Finite-state control; timing closure under tight constraints.</li>
+          </ul>
+        </article>
 
+        <!-- More projects (hidden until “Show more”) -->
+        <article class="card project-card">
+          <h3>A Robotic Solution for Internal Imperfection Detection in Industrial Machinery</h3>
+          <p class="subtle"><em>What’s cool:</em> compact mobile inspector for tight industrial spaces using a multi-sensor scanning head.</p>
+          <ul class="subtle" style="padding-left:1.1rem;">
+            <li>Flame, DHT-11, MO-26, and ultrasonic sensing for anomaly detection.</li>
+            <li>Servo-mounted ultrasonic automates steering in confined paths.</li>
+          </ul>
+        </article>
 
-        <article class="card">
-          <h3>Earlier Prototypes</h3>
-          <p class="subtle">Visual Aid (feedback navigation for the visually impaired), SensoRobot (pipe navigation robot), Smart Garbage Bin (auto-open + capacity).</p>
-          <p><a class="inline" target="_blank" href="https://github.com/Samanyu-007?tab=repositories">More on GitHub →</a></p>
+        <article class="card project-card">
+          <h3>Goniometry — Visual Aid</h3>
+          <p class="subtle"><em>What’s cool:</em> finger-controlled ultrasonic guidance for the visually impaired; cap-mounted scanning with haptic/audio feedback.</p>
+          <ul class="subtle" style="padding-left:1.1rem;">
+            <li>Cap-mounted servo + ultrasonic scans the path ahead.</li>
+            <li>Glove finger cues trigger scans; vibro/audio cues guide the user.</li>
+          </ul>
         </article>
       </div>
+
+      <button id="showMoreProjects" class="showmore" aria-expanded="false">
+        <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+        <span class="label">Show more projects</span>
+      </button>
+
+      <p class="subtle" style="margin-top:10px;">
+        <a class="inline" target="_blank" rel="noopener" href="https://github.com/Samanyu-007?tab=repositories">More on GitHub →</a>
+      </p>
+
 
       <article class="card" style="margin-top:16px;">
         <h3>What I’m most proud of</h3>
@@ -579,6 +646,7 @@ If you’re into creative engineering, puzzle-first thinking, and building smart
               <li><a href="https://ieeexplore.ieee.org/abstract/document/10157289" target="_blank" rel="noopener">FPGA-based decision-making for satellite orientation</a></li>
               <li><a href="https://pubs-aip-org.tudelft.idm.oclc.org/aip/acp/article/3035/1/020020/3268223" target="_blank" rel="noopener">Robotic solution for internal imperfection detection</a></li>
             </ul>
+            <ul class="subtle" style="margin-top:8px;">(Also more recently TIENOS and my poster at NCN)</ul>
           </div>
 
           <!-- Blog posts -->
@@ -625,7 +693,7 @@ If you’re into creative engineering, puzzle-first thinking, and building smart
 
       <div class="card">
         <h3>Coming Soon!</h3>
-        <p>Poster presentation at the <strong>Neuromorphic Computing Netherlands 2025</strong> conference. Stay tuned for updates & materials.</p>
+        <p>Poster presentation at the <strong>Neuromorphic Computing Netherlands 2025</strong> conference. You are here!</p>
         <p><a class="inline" href="https://sites.google.com/view/ncn2025" target="_blank">NCN 2025 →</a></p>
       </div>
     </section>
@@ -718,5 +786,27 @@ If you’re into creative engineering, puzzle-first thinking, and building smart
       });
     });
   </script>
+
+  <script>
+    // Expand/collapse projects
+    const projGrid = document.getElementById('projectsGrid');
+    const showBtn  = document.getElementById('showMoreProjects');
+
+    function updateProjectsButton(){
+      const expanded = projGrid.classList.contains('expanded');
+      showBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      showBtn.querySelector('.label').textContent = expanded ? 'Show fewer projects' : 'Show more projects';
+      showBtn.querySelector('.chev').style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    if (projGrid && showBtn){
+      showBtn.addEventListener('click', () => {
+        projGrid.classList.toggle('expanded');
+        updateProjectsButton();
+      });
+      updateProjectsButton();
+    }
+  </script>
+
 </body>
 </html>
