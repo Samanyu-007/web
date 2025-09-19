@@ -265,59 +265,6 @@
     .showmore:hover{ background:rgba(255,255,255,.06); }
     .showmore .chev{ transition: transform .18s ease; }
 
-    /* --- Mobile reading comfort --- */
-    @media (max-width: 720px){
-      /* justify main text blocks */
-      p, .card p, .hero p, li, .subtle { 
-        text-align: justify;
-        text-justify: inter-word;
-        hyphens: auto;
-      }
-      /* hide desktop contact pill */
-      .cta { display: none; }
-      /* show hamburger; hide desktop tab row */
-      .tabs { display: none; }
-      .menu-toggle { display: inline-flex; }
-      /* mobile menu panel */
-      .mobile-menu { display: block; }
-    }
-
-    /* --- Hamburger + mobile menu --- */
-    .menu-toggle{
-      display:none; /* shown via media query on mobile */
-      align-items:center; justify-content:center;
-      width:40px; height:40px; border-radius:10px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.04);
-      color: var(--text); cursor:pointer;
-    }
-    .menu-toggle:focus-visible{ outline:2px solid var(--acc-2); outline-offset:2px; }
-    .menu-ic{ font-size:1.1rem; }
-
-    .mobile-menu{
-      display:none; /* default hidden on desktop */
-      position: absolute; right: 10px; top: calc(var(--tab-h) + 8px);
-      width: min(92vw, 320px);
-      background: linear-gradient(180deg, var(--card), var(--card-2));
-      border:1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .mobile-menu a{
-      display:flex; align-items:center; gap:10px;
-      padding:12px 14px; color:var(--text); text-decoration:none;
-      border-bottom:1px solid rgba(255,255,255,.04);
-    }
-    .mobile-menu a:last-child{ border-bottom:0; }
-    .mobile-menu a:hover{ background: rgba(255,255,255,.05); }
-    .mobile-menu .mini{
-      width:18px; height:18px; object-fit:contain;
-    }
-
-    /* keep panel headings from hiding behind sticky nav */
-    .panel { scroll-margin-top: calc(var(--tab-h) + 12px); }
-
 
     /* Education accordion */
     .edu-accordion{width:100%}
@@ -394,6 +341,25 @@
     /* Responsive type tweaks */
     @media (min-width:1200px){body{font-size:17px}}
     @media (max-width:860px){.section-title{font-size:1.25rem}.card h3{font-size:1.02rem}}
+
+    /* Mobile readability + nav cleanup */
+    @media (max-width: 720px){
+      p, .card p, .hero p, li, .subtle {
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+      }
+
+      /* hide desktop contact pill on mobile */
+      .cta { display: none; }
+
+      /* we’re using the drawer, not the desktop pills */
+      .tabs { display: none; }
+
+      /* show the hamburger */
+      .menu-btn { display: inline-flex; align-items:center; justify-content:center; }
+    }
+
   </style>
   </head>
   <body>
@@ -432,66 +398,10 @@
     <div class="spacer"></div>
     <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i> Contact</a>
 
-    <nav class="nav" role="tablist" aria-label="Primary">
-      <div class="brand">
-        <a href="#ground-station" data-tab="ground-station">
-          <img src="logo_transparent_highres.png" alt="Samanyu Logo" class="logo-img">
-        </a>
-      </div>
-
-      <!-- desktop tabs (hidden on mobile via CSS) -->
-      <div class="tabs">
-        <a class="tab" role="tab" href="#ground-station" data-tab="ground-station">
-          <i class="fa-solid fa-satellite-dish"></i> Ground Station
-        </a>
-        <a class="tab" role="tab" href="#first-stage" data-tab="first-stage">
-          <img class="tab-icon" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage
-        </a>
-        <a class="tab" role="tab" href="#fuel" data-tab="fuel">
-          <img class="tab-icon" src="oil-barrel.png" alt="" aria-hidden="true"> Fuel
-        </a>
-        <a class="tab" role="tab" href="#ignition" data-tab="ignition">
-          <img class="tab-icon" src="start-up.png" alt="" aria-hidden="true"> Ignition
-        </a>
-        <a class="tab" role="tab" href="#escape-velocity" data-tab="escape-velocity">
-          <img class="tab-icon" src="speed.png" alt="" aria-hidden="true"> Escape Velocity
-        </a>
-      </div>
-
-      <div class="spacer"></div>
-
-      <!-- desktop contact pill (hidden on mobile via CSS) -->
-      <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu">
-        <i class="fa-solid fa-envelope"></i> Contact
-      </a>
-
-      <!-- hamburger (mobile only) -->
-      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <i class="fa-solid fa-bars menu-ic" aria-hidden="true"></i>
-      </button>
-
-      <!-- mobile slide-down menu -->
-      <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
-        <a href="#ground-station" data-tab="ground-station" role="menuitem">
-          <i class="fa-solid fa-satellite-dish mini" aria-hidden="true"></i> Ground Station
-        </a>
-        <a href="#first-stage" data-tab="first-stage" role="menuitem">
-          <img class="mini" src="octagonal.png" alt="" aria-hidden="true"> 1st Stage
-        </a>
-        <a href="#fuel" data-tab="fuel" role="menuitem">
-          <img class="mini" src="oil-barrel.png" alt="" aria-hidden="true"> Fuel
-        </a>
-        <a href="#ignition" data-tab="ignition" role="menuitem">
-          <img class="mini" src="start-up.png" alt="" aria-hidden="true"> Ignition
-        </a>
-        <a href="#escape-velocity" data-tab="escape-velocity" role="menuitem">
-          <img class="mini" src="speed.png" alt="" aria-hidden="true"> Escape Velocity
-        </a>
-        <a href="mailto:samanyuokade@gmail.com" role="menuitem">
-          <i class="fa-solid fa-envelope mini" aria-hidden="true"></i> Contact
-        </a>
-      </div>
-    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu"
+            aria-controls="mobileMenu" aria-expanded="false">
+      <span class="menu-bars"></span>
+    </button>
 
   </nav>
 
@@ -921,34 +831,6 @@ If you’re reading this, I hope you’re as excited by possibility as I am. Bec
         updateProjectsButton();
       });
       updateProjectsButton();
-    }
-  </script>
-
-  <script>
-    // --- Mobile menu toggle ---
-    const menuBtn = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    function setMenu(open){
-      mobileMenu.style.display = open ? 'block' : 'none';
-      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
-      // icon swap (bars <-> x)
-      menuBtn.innerHTML = open 
-        ? '<i class="fa-solid fa-xmark menu-ic" aria-hidden="true"></i>'
-        : '<i class="fa-solid fa-bars menu-ic" aria-hidden="true"></i>';
-    }
-    if(menuBtn && mobileMenu){
-      setMenu(false);
-      menuBtn.addEventListener('click', () => setMenu(mobileMenu.style.display !== 'block'));
-      // close after clicking a menu item
-      mobileMenu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => setMenu(false));
-      });
-      // close on resize to desktop
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 720) setMenu(false);
-      });
     }
   </script>
 
