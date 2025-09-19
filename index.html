@@ -341,25 +341,6 @@
     /* Responsive type tweaks */
     @media (min-width:1200px){body{font-size:17px}}
     @media (max-width:860px){.section-title{font-size:1.25rem}.card h3{font-size:1.02rem}}
-
-    /* Mobile readability + nav cleanup */
-    @media (max-width: 720px){
-      p, .card p, .hero p, li, .subtle {
-        text-align: justify;
-        text-justify: inter-word;
-        hyphens: auto;
-      }
-
-      /* hide desktop contact pill on mobile */
-      .cta { display: none; }
-
-      /* we’re using the drawer, not the desktop pills */
-      .tabs { display: none; }
-
-      /* show the hamburger */
-      .menu-btn { display: inline-flex; align-items:center; justify-content:center; }
-    }
-
   </style>
   </head>
   <body>
@@ -397,12 +378,6 @@
 
     <div class="spacer"></div>
     <a class="cta" href="mailto:samanyuokade@gmail.com" title="Email Samanyu"><i class="fa-solid fa-envelope"></i> Contact</a>
-
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu"
-            aria-controls="mobileMenu" aria-expanded="false">
-      <span class="menu-bars"></span>
-    </button>
-
   </nav>
 
   <aside id="mobileMenu" class="drawer" aria-hidden="true">
