@@ -10,7 +10,7 @@
 
     :root{
       /* tweak for brighter/dimmer */
-      --link-underline: rgba(255,255,255,.28);
+      --link-underline: rgba(255,255,255,.35);
       --link-underline-hover: var(--acc-2);
     }
 
@@ -21,8 +21,8 @@
       position: relative;
     }
 
-    /* soft shimmering underline that fits the theme */
-    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge)::after{
+    /* soft underline */
+    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge)::before{
       content: "";
       position: absolute;
       left: 0; right: 0; bottom: -2px;
@@ -32,8 +32,7 @@
       opacity: .85;
       transition: transform .18s ease, opacity .18s ease, background-color .18s ease;
     }
-
-    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge):hover::after{
+    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge):hover::before{
       background: linear-gradient(90deg, transparent, var(--link-underline-hover), transparent);
       transform: scaleX(1);
       opacity: 1;
@@ -127,27 +126,29 @@
     /* before: border-image rectangle look */
     /* after: subtle pill highlight + soft border */
 
-    /* External link cue (Font Awesome arrow); auto-added via JS below */
     a.ext-link{
-      padding-right: .9rem;
+      padding-right: 1.25rem;           /* room for the icon */
     }
 
-    a.ext-link::before{
-      /* keeps the underline below the icon too */
-      content: "\f35d";                 /* fa-arrow-up-right-from-square */
+    /* the small arrow, positioned at the far right */
+    a.ext-link::after{
+      content: "\f35d";                  /* fa-arrow-up-right-from-square */
       font-family: "Font Awesome 6 Free";
       font-weight: 900;
-      font-size: .85em;
-      position: relative;
-      margin-left: .45rem;
-      opacity: .7;
+      font-size: .9em;
+      position: absolute;
+      right: 0;                          /* hugs the padded edge */
+      top: 50%;
+      transform: translateY(-55%);       /* optical centering */
+      opacity: .72;
       transition: transform .18s ease, opacity .18s ease;
     }
 
-    a.ext-link:hover::before{
-      transform: translateY(-1px);
+    a.ext-link:hover::after{
+      transform: translateY(-60%);       /* tiny lift on hover */
       opacity: 1;
     }
+
 
     /* --- Mobile nav defaults --- */
     .menu-btn{
@@ -212,7 +213,6 @@
 
 
 /* (Nice extra) icon-only pills on very narrow screens IF i keep desktop tabs visible:
-   Uncomment this block if you prefer the pills instead of the drawer below ~420px
 @media (max-width: 420px){
   .tabs{ overflow-x:auto; display:flex; }
   .tab .label { display:none; }
