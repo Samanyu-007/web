@@ -7,6 +7,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
   <style>
+
+    :root{
+      /* tweak for brighter/dimmer */
+      --link-underline: rgba(255,255,255,.28);
+      --link-underline-hover: var(--acc-2);
+    }
+
+    /* default text links in content (keeps buttons/cards as-is) */
+    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge){
+      color: var(--text);
+      text-decoration: none;
+      position: relative;
+    }
+
+    /* soft shimmering underline that fits the theme */
+    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge)::after{
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -2px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--link-underline), transparent);
+      transform: scaleX(.75);
+      opacity: .85;
+      transition: transform .18s ease, opacity .18s ease, background-color .18s ease;
+    }
+
+    main a:not(.tab):not(.cta):not(.playlist-card):not(.link-card):not(.badge):hover::after{
+      background: linear-gradient(90deg, transparent, var(--link-underline-hover), transparent);
+      transform: scaleX(1);
+      opacity: 1;
+    }
+
+    /* visited links: keep same color (no purple) */
+    main a:visited{ color: var(--text); }
+
+    /* focus ring for accessibility */
+    main a:focus-visible{
+      outline: 2px solid var(--acc-2);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
   :root{
     --ink:#0a0a0d;--text:#fcfbfe;--deep-1:#1d1135;--deep-2:#0c164f;--acc-1:#ba1e68;--acc-2:#5643fd;--acc-3:#7649fe;
     --muted:#b9b8c6;--card:#121219;--card-2:#151522;--border:#232333;--shadow:0 10px 30px rgba(0,0,0,.35);
@@ -84,6 +126,28 @@
     /* .tab.active{background:var(--active-bg);border-image:var(--active-brd) 1;border-width:1px;border-style:solid;border-color:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)} */
     /* before: border-image rectangle look */
     /* after: subtle pill highlight + soft border */
+
+    /* External link cue (Font Awesome arrow); auto-added via JS below */
+    a.ext-link{
+      padding-right: .9rem;
+    }
+
+    a.ext-link::before{
+      /* keeps the underline below the icon too */
+      content: "\f35d";                 /* fa-arrow-up-right-from-square */
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: .85em;
+      position: relative;
+      margin-left: .45rem;
+      opacity: .7;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+
+    a.ext-link:hover::before{
+      transform: translateY(-1px);
+      opacity: 1;
+    }
 
     /* --- Mobile nav defaults --- */
     .menu-btn{
@@ -279,7 +343,7 @@
     .menu-btn.open .menu-caret{ transform: rotate(180deg); } /* becomes chevron-up */
     .menu-btn{ 
         margin-left: auto;   /* pushes it to the end of the flex row */
-      }
+    }
 
 
 
@@ -536,8 +600,8 @@
     <!-- Resume card -->
         <article class="card resume-preview">
         <h3>My Resume</h3>
-        <embed src="SamanyuOkade_master.pdf#page=1&zoom=80" type="application/pdf">
-        <a href="SamanyuOkade_master.pdf" target="_blank">View full resume →</a>
+        <embed src="SamanyuOkade_TUDelft_GradDigitalDesignMicroE.pdf#page=1&zoom=80" type="application/pdf">
+        <a href="SamanyuOkade_TUDelft_GradDigitalDesignMicroE.pdf" target="_blank">View full resume →</a>
         </article>
 
     </section>
@@ -826,6 +890,24 @@ If you’re reading this, I hope you’re as excited by possibility as I am. Bec
       updateProjectsButton();
     }
   </script>
+
+  <script>
+    (function(){
+      const host = location.host.replace(/^www\./,'');
+      document.querySelectorAll('a[href^="http"]').forEach(a => {
+        try{
+          const url = new URL(a.href);
+          const isExternal = url.host.replace(/^www\./,'') !== host;
+          if(isExternal){
+            a.classList.add('ext-link');
+            if(!a.target) a.target = "_blank";
+            a.rel = "noopener noreferrer";
+          }
+        }catch(e){}
+      });
+    })();
+  </script>
+
 
 </body>
 </html>
