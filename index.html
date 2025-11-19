@@ -151,6 +151,16 @@
 
 
     /* --- Mobile nav defaults --- */
+    .menu-btn .menu-burger { 
+      font-size: 22px; 
+      color: #eae9f7;
+      transition: transform .2s ease;
+    }
+
+    .menu-btn.open .menu-burger {
+      transform: rotate(90deg);   /* becomes ✕-ish */
+    }
+
     .menu-btn{
       display:none;                /* shown only on small screens */
       margin-left:6px;
@@ -209,6 +219,30 @@
     }
     @media (max-width: 720px){
       .nav .cta { display: none; }
+    }
+
+    @media (max-width: 720px) {
+
+      .nav {
+        justify-content: space-between;
+      }
+
+      /* Move logo to the right */
+      .brand {
+        margin-left: auto;
+        order: 3;        /* push it to the far right */
+      }
+
+      /* Burger icon goes to the left */
+      .menu-btn {
+        order: 1;
+        margin-left: 0;
+      }
+
+      /* Hide the title next to the logo on mobile */
+      .brand .title {
+        display: none;
+      }
     }
 
 
@@ -495,7 +529,7 @@
       </div>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
-      <i class="fa-solid fa-chevron-down menu-caret" aria-hidden="true"></i>
+      <i class="fa-solid fa-bars menu-burger" aria-hidden="true"></i>
     </button>
 
 
@@ -840,7 +874,7 @@ If you’re reading this, I hope you’re as excited by possibility as I am. Bec
       </h2>
 
       <!-- <div class="card"> -->
-        <h3>Watch this space for more excited updates!</h3>
+        <h3>You will find me scuttering around the Space Expo Bremen on the 17th, 18th and the 19th!</h3>
         <!-- <p>Poster presentation at the <strong>Neuromorphic Computing Netherlands 2025</strong> conference. You are here!</p> -->
         <!-- <p><a class="inline" href="https://sites.google.com/view/ncn2025" target="_blank">NCN 2025 →</a></p> -->
       <!-- </div> -->
