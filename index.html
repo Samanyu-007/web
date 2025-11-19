@@ -221,25 +221,30 @@
       .nav .cta { display: none; }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 720px){
 
       .nav {
-        justify-content: space-between;
+        display: flex;
+        align-items: center;
       }
 
-      /* Move logo to the right */
-      .brand {
-        margin-left: auto;
-        order: 3;        /* push it to the far right */
-      }
-
-      /* Burger icon goes to the left */
+      /* Force ordering */
       .menu-btn {
         order: 1;
+        margin-left: 0;         /* ensure it sticks to left side */
+      }
+
+      .spacer {
+        order: 2;
+        flex: 1;                /* pushes brand/logo all the way to the right */
+      }
+
+      .brand {
+        order: 3;
         margin-left: 0;
       }
 
-      /* Hide the title next to the logo on mobile */
+      /* Hide title next to the logo on mobile */
       .brand .title {
         display: none;
       }
